@@ -36,7 +36,12 @@ const CLIENT_URL = process.env.CLIENT_URL
     "http://127.0.0.1:5173"
   ];
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+let stripe;
+if (process.env.STRIPE_SECRET_KEY) {
+  stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+} else {
+  console.warn("WARNING: STRIPE_SECRET_KEY is missing. Stripe functionality will be disabled.");
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -61,6 +66,9 @@ app.get("/", (req, res) => {
 
 app.post("/create-payment-intent", async (req, res) => {
   try {
+    if (!stripe) {
+      return res.status(500).json({ error: "Stripe is not configured on the server." });
+    }
     const { amount, currency = "usd" } = req.body; // amount in cents
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
