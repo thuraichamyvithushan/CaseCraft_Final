@@ -27,7 +27,6 @@ const PORT = process.env.PORT || 5000;
 const ALLOWED_ORIGINS = process.env.CLIENT_URL
   ? process.env.CLIENT_URL.split(",").map(url => url.trim())
   : [
-    "https://casecraft.com.au",
     "https://case-craft-final.vercel.app",
     "http://localhost:3000"
   
