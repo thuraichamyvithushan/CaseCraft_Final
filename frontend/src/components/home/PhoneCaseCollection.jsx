@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import case1 from "../../assets/cases/case1.webp";
 import case2 from "../../assets/cases/case2.webp";
@@ -108,7 +109,7 @@ export default function PhoneCaseCollection() {
                 </ul>
 
                 {/* CTA */}
-                <button className="group/btn w-full relative bg-gradient-to-r from-[#FADC58] to-[#C79F2B] text-[#124090] py-3 sm:py-5 px-4 sm:px-0 rounded-2xl font-bold text-base sm:text-lg shadow-2xl hover:shadow-[#FADC58]/60 hover:scale-105 transition-all duration-300 overflow-hidden">
+                <Link to="/case-design" className="group/btn block w-full relative bg-gradient-to-r from-[#FADC58] to-[#C79F2B] text-[#124090] py-3 sm:py-5 px-4 sm:px-0 rounded-2xl font-bold text-base sm:text-lg shadow-2xl hover:shadow-[#FADC58]/60 hover:scale-105 transition-all duration-300 overflow-hidden text-center">
                   <span className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
                     Customize Now
                     <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover/btn:translate-x-1 sm:group-hover/btn:translate-x-2" />
@@ -116,7 +117,7 @@ export default function PhoneCaseCollection() {
 
                   {/* Shine Effect */}
                   <div className="absolute inset-0 bg-white/30 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 skew-x-12" />
-                </button>
+                </Link>
 
               </div>
             </div>
@@ -125,10 +126,10 @@ export default function PhoneCaseCollection() {
 
         {/* Bottom CTA */}
         <div className="text-center mt-8 sm:mt-16">
-          <button className="group inline-flex items-center gap-2 sm:gap-4 text-base sm:text-xl font-bold text-[#124090] hover:text-[#FADC58] transition-colors duration-300">
+          <Link to="/case-design" className="group inline-flex items-center gap-2 sm:gap-4 text-base sm:text-xl font-bold text-[#124090] hover:text-[#FADC58] transition-colors duration-300">
             See All Case Types
             <ArrowRight className="w-5 h-5 sm:w-7 sm:h-7 transition-transform group-hover:translate-x-1 sm:group-hover:translate-x-3" />
-          </button>
+          </Link>
         </div>
 
       </div>
