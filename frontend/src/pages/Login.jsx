@@ -83,7 +83,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] flex items-center justify-center px-4 py-12 relative overflow-hidden">
+    <div className="min-h-screen bg-white flex items-center justify-center px-4 py-12 relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-0 left-0 right-0 h-[300px] bg-gradient-to-b from-[#124090]/10 to-transparent -z-10" />
 
@@ -112,8 +112,8 @@ const Login = () => {
                   onChange={handleChange}
                   onBlur={() => handleBlur("email")}
                   className={`w-full rounded-2xl border-2 bg-slate-50/50 px-5 py-4 text-slate-700 transition-all focus:bg-white outline-none ${validationErrors.email && touched.email
-                      ? "border-rose-100 focus:border-rose-400"
-                      : "border-slate-100 focus:border-[#FFC107]"
+                    ? "border-rose-100 focus:border-rose-400"
+                    : "border-slate-100 focus:border-[#FFC107]"
                     }`}
                   required
                 />
@@ -148,8 +148,8 @@ const Login = () => {
                   onChange={handleChange}
                   onBlur={() => handleBlur("password")}
                   className={`w-full rounded-2xl border-2 bg-slate-50/50 px-5 py-4 text-slate-700 transition-all focus:bg-white outline-none ${validationErrors.password && touched.password
-                      ? "border-rose-100 focus:border-rose-400"
-                      : "border-slate-100 focus:border-[#FFC107]"
+                    ? "border-rose-100 focus:border-rose-400"
+                    : "border-slate-100 focus:border-[#FFC107]"
                     }`}
                   required
                 />

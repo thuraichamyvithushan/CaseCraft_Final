@@ -3,7 +3,7 @@ import { CheckCircle, Package, ArrowRight, Home } from "lucide-react";
 
 const Success = () => {
   return (
-    <div className="min-h-screen bg-[#f8fafc] flex items-center justify-center px-4 py-12 relative overflow-hidden">
+    <div className="min-h-screen bg-white flex items-center justify-center px-4 py-12 relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-0 left-0 right-0 h-[400px] bg-gradient-to-b from-[#124090]/10 to-transparent -z-10" />
 

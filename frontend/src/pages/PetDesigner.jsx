@@ -120,7 +120,7 @@ const PetDesigner = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 py-4 sm:py-6 lg:py-8">
+    <div className="min-h-screen bg-white py-4 sm:py-6 lg:py-8">
       <div className="mx-auto max-w-7xl px-3 sm:px-4">
         {/* Header */}
         <div className="mb-6 sm:mb-8 rounded-xl sm:rounded-2xl bg-white p-4 sm:p-6 shadow-sm ring-1 ring-slate-200/50">

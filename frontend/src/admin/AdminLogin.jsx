@@ -30,7 +30,7 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="flex min-h-[80vh] items-center justify-center bg-slate-50 px-4">
+    <div className="min-h-screen bg-white flex items-center justify-center px-4 py-12 relative overflow-hidden">
       <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg">
         <h2 className="text-2xl font-semibold text-slate-800">Admin Login</h2>
         <p className="mt-2 text-sm text-slate-500">Restricted access.</p>

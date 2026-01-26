@@ -182,7 +182,7 @@ const Checkout = () => {
   if (!items || items.length === 0) return null;
 
   return (
-    <div className="min-h-screen bg-[#f8fafc]">
+    <div className="min-h-screen bg-white">
       {/* Background Decorative Element */}
       <div className="absolute top-0 left-0 right-0 h-[300px] bg-gradient-to-b from-[#124090]/10 to-transparent -z-10" />
 

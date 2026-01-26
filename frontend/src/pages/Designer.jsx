@@ -14,7 +14,11 @@ import {
     Smartphone,
     ImageIcon,
     Palette,
-    FlipHorizontal
+    FlipHorizontal,
+    HelpCircle,
+    MousePointer2,
+    Layers,
+    Lightbulb
 } from "lucide-react";
 
 const Designer = () => {
@@ -529,7 +533,7 @@ const Designer = () => {
     const templates = selectedModel ? getTemplates(selectedModel) : [];
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-white">
             <div className="mx-auto max-w-7xl px-3 py-4 sm:px-4 sm:py-6 lg:py-12">
                 {/* Header */}
                 <div className="mb-4 sm:mb-6 lg:mb-10">
@@ -608,6 +612,52 @@ const Designer = () => {
                                 </p>
                             </div>
                         )}
+
+                        {/* Tips Card - New */}
+                        <div className="hidden lg:block rounded-xl bg-white p-5 shadow-lg border border-slate-200 sm:rounded-2xl">
+                            <div className="flex items-center gap-2 mb-5">
+                                <HelpCircle className="w-5 h-5 text-[#FFC107]" />
+                                <h2 className="font-bold text-[#02225b]">Design Tips</h2>
+                            </div>
+
+                            <ul className="space-y-4">
+                                <li className="flex gap-3">
+                                    <div className="h-6 w-6 rounded-lg bg-[#FFC107]/10 flex items-center justify-center flex-shrink-0">
+                                        <MousePointer2 className="w-3.5 h-3.5 text-[#FFC107]" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-bold text-[#02225b]">Select & Move</p>
+                                        <p className="text-[10px] text-slate-500 mt-0.5">Click your image on the case to select it, then drag to reposition.</p>
+                                    </div>
+                                </li>
+
+                                <li className="flex gap-3">
+                                    <div className="h-6 w-6 rounded-lg bg-[#124090]/10 flex items-center justify-center flex-shrink-0">
+                                        <Layers className="w-3.5 h-3.5 text-[#124090]" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-bold text-[#02225b]">Stay in Bounds</p>
+                                        <p className="text-[10px] text-slate-500 mt-0.5">The visual area represents the print zone. Keep important parts away from edges.</p>
+                                    </div>
+                                </li>
+
+                                <li className="flex gap-3">
+                                    <div className="h-6 w-6 rounded-lg bg-emerald-50 flex items-center justify-center flex-shrink-0">
+                                        <Lightbulb className="w-3.5 h-3.5 text-emerald-500" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-bold text-[#02225b]">High Resolution</p>
+                                        <p className="text-[10px] text-slate-500 mt-0.5">Use clear, bright photos for the best print finish on your case.</p>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <div className="mt-6 p-3 rounded-xl bg-slate-50 border border-slate-100 italic">
+                                <p className="text-[10px] text-slate-400 text-center leading-relaxed">
+                                    "Your masterpiece starts with a single click!"
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
                     {/* Center Panel - Canvas & Tools (Second on Mobile, Right Column on Desktop) */}
