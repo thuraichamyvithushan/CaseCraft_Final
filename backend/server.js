@@ -31,8 +31,10 @@ const ALLOWED_ORIGINS = process.env.CLIENT_URL
     "http://localhost:3000",
     "http://localhost:3001",
     "http://localhost:5173",
+    "http://localhost:5000",
     "http://127.0.0.1:3000",
-    "http://127.0.0.1:5173"
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:5000"
   ];
 
 console.log("Allowed Origins:", ALLOWED_ORIGINS);
@@ -47,14 +49,11 @@ if (process.env.STRIPE_SECRET_KEY) {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Database
 connectDB();
 
-// Middleware
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl requests)
       if (!origin) return callback(null, true);
       if (ALLOWED_ORIGINS.indexOf(origin) !== -1 || ALLOWED_ORIGINS.includes("*")) {
         callback(null, true);
@@ -71,7 +70,6 @@ app.use(
 app.use(express.json({ limit: "50mb" }));
 app.use(morgan("dev"));
 
-// Routes
 app.get("/", (req, res) => {
   res.json({ message: "Phone Cover Customizer API is running" });
 });
@@ -90,7 +88,7 @@ app.post("/create-payment-intent", async (req, res) => {
     if (!stripe) {
       return res.status(500).json({ error: "Stripe is not configured on the server." });
     }
-    const { amount, currency = "usd" } = req.body; // amount in cents
+    const { amount, currency = "usd" } = req.body;
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
       currency,
@@ -112,17 +110,13 @@ app.use("/api/contact", contactRoutes);
 app.use("/api/admin/pet-products", petProductRoutes);
 
 
-
-// 404 handler
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
 });
 
-// Error handler
 app.use((err, req, res, next) => {
   console.error("Error:", err);
 
-  // Mongoose validation error
   if (err.name === "ValidationError") {
     const messages = Object.values(err.errors).map((e) => e.message);
     return res.status(400).json({
@@ -130,14 +124,12 @@ app.use((err, req, res, next) => {
     });
   }
 
-  // Mongoose duplicate key error
   if (err.code === 11000) {
     return res.status(409).json({
       message: "Duplicate entry. This record already exists."
     });
   }
 
-  // JWT errors
   if (err.name === "JsonWebTokenError") {
     return res.status(401).json({
       message: "Invalid token"
@@ -150,13 +142,11 @@ app.use((err, req, res, next) => {
     });
   }
 
-  // Default error
   res.status(err.status || 500).json({
     message: err.message || "Internal server error"
   });
 });
 
-// Local development
 const isVercel = process.env.VERCEL === '1' || !!process.env.NOW_REGION;
 
 if (!isVercel && process.env.NODE_ENV !== 'production') {
@@ -165,6 +155,5 @@ if (!isVercel && process.env.NODE_ENV !== 'production') {
   });
 }
 
-// Export for Vercel
 export default app;
 
