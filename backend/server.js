@@ -48,9 +48,16 @@ if (process.env.STRIPE_SECRET_KEY) {
 
 const isVercel = process.env.VERCEL === '1' || !!process.env.NOW_REGION;
 
-// Database
-console.log("Starting server common initialization...");
-connectDB().then(() => console.log("Database connection handshake initiated."));
+// Database Connection Middleware for Serverless
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    console.error("Database connection failed in middleware:", error);
+    res.status(500).json({ message: "Database connection error" });
+  }
+});
 
 // Middleware
 app.use(
