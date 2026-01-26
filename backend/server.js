@@ -24,17 +24,18 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const CLIENT_URL = process.env.CLIENT_URL
-  ? process.env.CLIENT_URL.split(",")
+const ALLOWED_ORIGINS = process.env.CLIENT_URL
+  ? process.env.CLIENT_URL.split(",").map(url => url.trim())
   : [
     "https://case-craft-final.vercel.app",
     "http://localhost:3000",
     "http://localhost:3001",
     "http://localhost:5173",
     "http://127.0.0.1:3000",
-    "http://127.0.0.1:3000",
     "http://127.0.0.1:5173"
   ];
+
+console.log("Allowed Origins:", ALLOWED_ORIGINS);
 
 let stripe;
 if (process.env.STRIPE_SECRET_KEY) {
@@ -52,8 +53,19 @@ connectDB();
 // Middleware
 app.use(
   cors({
-    origin: CLIENT_URL,
-    credentials: true
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      if (ALLOWED_ORIGINS.indexOf(origin) !== -1 || ALLOWED_ORIGINS.includes("*")) {
+        callback(null, true);
+      } else {
+        console.warn(`Blocked by CORS: Origin ${origin} not in ALLOWED_ORIGINS`);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
   })
 );
 app.use(express.json({ limit: "50mb" }));
@@ -62,6 +74,15 @@ app.use(morgan("dev"));
 // Routes
 app.get("/", (req, res) => {
   res.json({ message: "Phone Cover Customizer API is running" });
+});
+
+app.get("/api/health", (req, res) => {
+  res.json({
+    status: "ok",
+    environment: process.env.NODE_ENV,
+    isVercel: isVercel,
+    allowedOrigins: ALLOWED_ORIGINS
+  });
 });
 
 app.post("/create-payment-intent", async (req, res) => {
