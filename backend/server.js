@@ -93,7 +93,7 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-app.post("/create-payment-intent", async (req, res) => {
+app.post("/api/create-payment-intent", async (req, res) => {
   try {
     if (!stripe) {
       return res.status(500).json({ error: "Stripe is not configured on the server." });
