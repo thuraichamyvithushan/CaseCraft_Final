@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://localhost:5000/api" : "/api");
+const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://localhost:5000/api" : "https://case-craft-final-yc3q.vercel.app/api");
 
 const adminClient = axios.create({
   baseURL: `${API_URL}/admin/`
@@ -11,7 +11,7 @@ adminClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      // Token is invalid or expired
+      // Token is invalid or expiredS
       localStorage.removeItem("cpc_admin_token");
       // Redirect to admin login
       window.location.href = "/admin/login";
