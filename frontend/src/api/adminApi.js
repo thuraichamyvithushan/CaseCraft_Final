@@ -11,9 +11,8 @@ adminClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      // Token is invalid or expiredS
       localStorage.removeItem("cpc_admin_token");
-      // Redirect to admin login
+      
       window.location.href = "/admin/login";
     }
     return Promise.reject(error);
