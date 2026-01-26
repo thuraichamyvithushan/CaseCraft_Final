@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://localhost:5000/api" : "/api");
+const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://localhost:5000/api" : "https://case-craft-final-yc3q.vercel.app/api");
 
 // Admin: fetch pet orders with pagination & search
 export const getPetOrders = async ({ page = 1, search = "", token }) => {
