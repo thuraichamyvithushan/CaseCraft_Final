@@ -135,13 +135,15 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Export for Vercel
-export default app;
-
 // Local development
-if (process.env.NODE_ENV !== 'production') {
+const isVercel = process.env.VERCEL === '1' || !!process.env.NOW_REGION;
+
+if (!isVercel && process.env.NODE_ENV !== 'production') {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
 }
+
+// Export for Vercel
+export default app;
 
