@@ -46,11 +46,13 @@ if (process.env.STRIPE_SECRET_KEY) {
   console.warn("WARNING: STRIPE_SECRET_KEY is missing. Stripe functionality will be disabled.");
 }
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const isVercel = process.env.VERCEL === '1' || !!process.env.NOW_REGION;
 
-connectDB();
+// Database
+console.log("Starting server common initialization...");
+connectDB().then(() => console.log("Database connection handshake initiated."));
 
+// Middleware
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -70,8 +72,9 @@ app.use(
 app.use(express.json({ limit: "50mb" }));
 app.use(morgan("dev"));
 
+// Routes
 app.get("/", (req, res) => {
-  res.json({ message: "Phone Cover Customizer API is running" });
+  res.json({ message: "Phone Cover Customizer API is running", isVercel });
 });
 
 app.get("/api/health", (req, res) => {
@@ -146,8 +149,6 @@ app.use((err, req, res, next) => {
     message: err.message || "Internal server error"
   });
 });
-
-const isVercel = process.env.VERCEL === '1' || !!process.env.NOW_REGION;
 
 if (!isVercel && process.env.NODE_ENV !== 'production') {
   app.listen(PORT, () => {
