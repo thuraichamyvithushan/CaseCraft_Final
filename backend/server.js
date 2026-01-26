@@ -48,17 +48,6 @@ if (process.env.STRIPE_SECRET_KEY) {
 
 const isVercel = process.env.VERCEL === '1' || !!process.env.NOW_REGION;
 
-// Database Connection Middleware for Serverless
-app.use(async (req, res, next) => {
-  try {
-    await connectDB();
-    next();
-  } catch (error) {
-    console.error("Database connection failed in middleware:", error);
-    res.status(500).json({ message: "Database connection error" });
-  }
-});
-
 // Middleware
 app.use(
   cors({
@@ -78,6 +67,17 @@ app.use(
 );
 app.use(express.json({ limit: "50mb" }));
 app.use(morgan("dev"));
+
+// Database Connection Middleware for Serverless
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    console.error("Database connection failed in middleware:", error);
+    res.status(500).json({ message: "Database connection error" });
+  }
+});
 
 // Routes
 app.get("/", (req, res) => {

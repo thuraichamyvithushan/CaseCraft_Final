@@ -25,7 +25,7 @@ adminClient.interceptors.response.use(
 );
 
 export const fetchPhoneModels = async () => {
-  const { data } = await publicClient.get("/");
+  const { data } = await publicClient.get("");
   return data;
 };
 
