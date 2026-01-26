@@ -55,7 +55,7 @@ app.use(async (req, res, next) => {
   }
 });
 
-// Middleware
+  // Middleware
 app.use(
   cors({
     origin: function (origin, callback) {
