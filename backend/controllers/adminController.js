@@ -1,5 +1,5 @@
-import Order from "../models/Order.js";
-import User from "../models/User.js";
+import Order from "../models/order.js";
+import User from "../models/user.js";
 import sendEmail from "../utils/sendEmail.js";
 
 export const getOrders = async (req, res, next) => {

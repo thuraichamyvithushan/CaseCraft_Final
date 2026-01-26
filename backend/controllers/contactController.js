@@ -1,4 +1,4 @@
-import ContactMessage from "../models/ContactMessage.js";
+import ContactMessage from "../models/contactMessage.js";
 import sendEmail from "../utils/sendEmail.js";
 
 // @desc    Submit contact form

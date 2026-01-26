@@ -1,4 +1,4 @@
-import PhoneModel from "../models/PhoneModel.js";
+import PhoneModel from "../models/phoneModel.js";
 
 export const getPhoneModels = async (req, res, next) => {
   try {

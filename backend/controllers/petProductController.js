@@ -1,4 +1,4 @@
-import PetProduct from "../models/PetProduct.js";
+import PetProduct from "../models/petProduct.js";
 
 // Get all products
 export const fetchPetProducts = async (req, res) => {
