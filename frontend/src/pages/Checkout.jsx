@@ -19,10 +19,8 @@ import {
   TrendingUp
 } from "lucide-react";
 
-// Replace with your Stripe public key
-const stripePromise = loadStripe("pk_test_51Om8diJsNbczZewUdSZtHpeUV3SgKA5Ts0euC9HyfXX6YLRCfAo9OcC8FsbLB6OeSJtPxdhob5pynwDzWHCPthuq00RyEHaT8p");
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
-// Stripe payment form component
 const StripePaymentForm = ({ amount, onPaymentSuccess }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -37,7 +35,7 @@ const StripePaymentForm = ({ amount, onPaymentSuccess }) => {
     setMessage("");
 
     try {
-      const BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://localhost:5000/api" : "https://case-craft-final-yc3q.vercel.app/api");
+      const BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://localhost:5000/api" : "/api");
 
       const { data } = await axios.post(
         `${BASE_URL}/create-payment-intent`,
@@ -49,7 +47,6 @@ const StripePaymentForm = ({ amount, onPaymentSuccess }) => {
 
       const clientSecret = data.clientSecret;
 
-      // Confirm card payment
       const result = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: elements.getElement(CardElement),
@@ -60,7 +57,7 @@ const StripePaymentForm = ({ amount, onPaymentSuccess }) => {
         setMessage(result.error.message);
       } else if (result.paymentIntent?.status === "succeeded") {
         setMessage("Payment successful!");
-        onPaymentSuccess(); // Save order after payment
+        onPaymentSuccess();
       }
     } catch (err) {
       console.error(err);
@@ -155,7 +152,7 @@ const Checkout = () => {
         userCustomImage: i.userCustomImage || "",
         customText: i.customText || "",
         price: i.price || 0,
-        quantity: form.quantity, // Use form quantity for each item
+        quantity: form.quantity,
         category: i.category || "phone_case"
       }));
 
@@ -183,11 +180,9 @@ const Checkout = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Background Decorative Element */}
       <div className="absolute top-0 left-0 right-0 h-[300px] bg-gradient-to-b from-[#124090]/10 to-transparent -z-10" />
 
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:py-16">
-        {/* Header Section */}
         <div className="mb-10 lg:mb-16">
           <div className="flex items-center gap-2 text-[#FFC107] font-bold text-sm uppercase tracking-wider mb-2">
             <ShoppingBag className="w-4 h-4" />
@@ -200,9 +195,7 @@ const Checkout = () => {
         </div>
 
         <div className="grid gap-8 lg:grid-cols-[1fr_400px]">
-          {/* Main Form Area */}
           <div className="space-y-8 order-2 lg:order-1">
-            {/* Step 1: Account & Shipping */}
             <div className="bg-white rounded-[32px] p-6 shadow-xl shadow-slate-200/50 border border-slate-100 sm:p-10">
               <div className="flex items-center gap-4 mb-8">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#124090] text-white font-bold">1</div>
@@ -292,7 +285,6 @@ const Checkout = () => {
               </div>
             </div>
 
-            {/* Step 2: Payment */}
             <div className="bg-white rounded-[32px] p-6 shadow-xl shadow-slate-200/50 border border-slate-100 sm:p-10">
               <div className="flex items-center gap-4 mb-8">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#124090] text-white font-bold">2</div>
@@ -316,7 +308,6 @@ const Checkout = () => {
             </div>
           </div>
 
-          {/* Cart Sidebar */}
           <div className="order-1 lg:order-2">
             <div className="sticky top-24 space-y-6">
               <div className="bg-white rounded-[32px] p-6 shadow-xl shadow-slate-200/50 border border-slate-100">
@@ -364,7 +355,6 @@ const Checkout = () => {
                   ))}
                 </div>
 
-                {/* Totals Section */}
                 <div className="mt-8 border-t-2 border-dashed border-slate-100 pt-8 space-y-4">
                   <div className="flex justify-between text-sm text-slate-500">
                     <span>Subtotal</span>
@@ -383,7 +373,6 @@ const Checkout = () => {
                 </div>
               </div>
 
-              {/* Guarantees */}
               <div className="bg-[#124090] rounded-[32px] p-6 text-white overflow-hidden relative shadow-2xl shadow-[#124090]/40">
                 <div className="absolute top-0 right-0 p-4 opacity-10">
                   <TrendingUp className="w-24 h-24" />
@@ -405,7 +394,6 @@ const Checkout = () => {
         </div>
       </div>
 
-      {/* Scrollbar CSS */}
       <style dangerouslySetInnerHTML={{
         __html: `
         .custom-scrollbar::-webkit-scrollbar {

@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://localhost:5000/api" : "https://case-craft-final-yc3q.vercel.app/api");
+const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://localhost:5000/api" : "/api");
 
 const authClient = axios.create({
   baseURL: `${API_URL}/auth`,
-  timeout: 10000, // 10 second timeout
+  timeout: 10000, 
   headers: {
     "Content-Type": "application/json"
   }
@@ -15,7 +15,6 @@ export const registerUser = async (payload) => {
     const { data } = await authClient.post("/register", payload);
     return data;
   } catch (error) {
-    // Re-throw with more context
     if (error.code === "ECONNREFUSED" || error.message.includes("Network Error")) {
       throw new Error("Cannot connect to server. Please ensure the backend is running on port 5000.");
     }
@@ -43,10 +42,6 @@ export const fetchProfile = async (token) => {
 };
 
 
-
-
-
-// FORGOT PASSWORD
 export const forgotPassword = async (email) => {
   try {
     const { data } = await authClient.post("/forgot-password", { email });
@@ -56,7 +51,6 @@ export const forgotPassword = async (email) => {
   }
 };
 
-// RESET PASSWORD
 export const resetPassword = async (token, password) => {
   try {
     const { data } = await authClient.post(`/reset-password/${token}`, { password });
@@ -66,7 +60,6 @@ export const resetPassword = async (token, password) => {
   }
 };
 
-// CART SYNC
 export const getCart = async (token) => {
   const { data } = await authClient.get("/cart", {
     headers: { Authorization: `Bearer ${token}` }

@@ -19,7 +19,7 @@ const Success = () => {
 
           {/* Text Content */}
           <h1 className="text-4xl sm:text-5xl font-black text-[#124090] tracking-tight mb-6">
-            Order Confirmed!
+            Order Received!
           </h1>
           <p className="text-lg text-slate-500 font-medium max-w-md mx-auto mb-10 leading-relaxed">
             Your custom design is now in our hands. Our team will review it shortly to ensure the highest print quality.
