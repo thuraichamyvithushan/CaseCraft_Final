@@ -17,9 +17,6 @@ import petProductRoutes from "./routes/petProductRoutes.js";
 import contactRoutes from "./routes/contactRoutes.js";
 
 
-
-
-
 dotenv.config();
 
 const app = express();
@@ -61,14 +58,14 @@ app.use(
       }
     },
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
   })
 );
 app.use(express.json({ limit: "50mb" }));
 app.use(morgan("dev"));
 
-// Database Connection Middleware for Serverless
+// Database 
 app.use(async (req, res, next) => {
   try {
     await connectDB();
@@ -79,7 +76,6 @@ app.use(async (req, res, next) => {
   }
 });
 
-// Routes
 app.get("/", (req, res) => {
   res.json({ message: "Phone Cover Customizer API is running", isVercel });
 });

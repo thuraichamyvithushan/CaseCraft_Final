@@ -8,7 +8,7 @@ import vendingMachine from "../../assets/vending-machine2.png";
 
 export default function CaseLaboratorySection() {
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-br from-[#3065C5] via-[#124090] to-[#FADC58]">
+    <section className="relative py-12 md:py-24 overflow-hidden bg-gradient-to-br from-[#3065C5] via-[#124090] to-[#FADC58]">
 
       {/* Subtle Overlay for Readability */}
       <div className="absolute inset-0 bg-black/40" />
@@ -22,23 +22,23 @@ export default function CaseLaboratorySection() {
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8 text-white z-10">
 
         {/* Hero Intro */}
-        <div className="text-center mb-20">
-          <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur px-8 py-4 rounded-full text-lg font-bold uppercase tracking-wider shadow-2xl mb-8">
-            <Zap className="w-6 h-6 text-[#FADC58]" />
+        <div className="text-center mb-12 md:mb-20">
+          <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg font-bold uppercase tracking-wider shadow-2xl mb-6 md:mb-8">
+            <Zap className="w-5 h-5 text-[#FADC58]" />
             Design it. Print it. Done in minutes.
           </div>
-          <h2 className="text-5xl md:text-7xl font-black leading-tight">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-black leading-tight">
             Case Craft
           </h2>
-          <p className="mt-6 text-xl md:text-2xl max-w-4xl mx-auto">
+          <p className="mt-4 md:mt-6 text-lg md:text-2xl max-w-4xl mx-auto">
             The exclusive reseller of the original <span className="font-bold text-[#FADC58]">phone case printing vending machines</span>
           </p>
           <Link
             to="/CaseCraftBusinessPage"
-            className="mt-10 inline-flex items-center gap-4 bg-white text-[#124090] px-10 py-5 rounded-full text-xl font-bold shadow-2xl hover:shadow-white/50 hover:scale-105 transition-all duration-300"
+            className="mt-8 md:mt-10 inline-flex items-center gap-3 md:gap-4 bg-white text-[#124090] px-8 py-4 md:px-10 md:py-5 rounded-full text-lg md:text-xl font-bold shadow-2xl hover:shadow-white/50 hover:scale-105 transition-all duration-300"
           >
             Learn More
-            <ArrowRight className="w-7 h-7" />
+            <ArrowRight className="w-6 h-6" />
           </Link>
         </div>
 
@@ -58,7 +58,7 @@ export default function CaseLaboratorySection() {
           <div className="order-1 lg:order-2 space-y-8">
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 bg-gradient-to-br from-[#FADC58] to-[#C79F2B] rounded-2xl flex items-center justify-center shadow-xl">
-                <QrCode className="w-9 h-9 text-[#124090]" />
+                <QrCode className="w-8 h-8 text-[#124090]" />
               </div>
               <h3 className="text-4xl md:text-5xl font-black leading-tight">
                 Your Phone.<br />Your Design.<br />
@@ -81,7 +81,7 @@ export default function CaseLaboratorySection() {
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-4">
                   <div className="w-8 h-8 bg-gradient-to-r from-[#FADC58] to-[#C79F2B] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Sparkles className="w-5 h-5 text-[#124090]" />
+                    <Sparkles className="w-4 h-4 text-[#124090]" />
                   </div>
                   <span className="text-lg text-gray-100">{item}</span>
                 </li>
@@ -91,11 +91,11 @@ export default function CaseLaboratorySection() {
         </div>
 
         {/* Business Opportunity */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 items-center ">
           <div className="space-y-8">
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 bg-gradient-to-br from-[#C79F2B] to-[#FADC58] rounded-2xl flex items-center justify-center shadow-xl">
-                <Store className="w-9 h-9 text-[#124090]" />
+                <Store className="w-8 h-8 text-[#124090]" />
               </div>
               <h3 className="text-4xl md:text-5xl font-black leading-tight">
                 Own a Phone Case<br />
@@ -119,7 +119,7 @@ export default function CaseLaboratorySection() {
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-4">
                   <div className="w-8 h-8 bg-gradient-to-r from-[#C79F2B] to-[#FADC58] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Sparkles className="w-5 h-5 text-[#124090]" />
+                    <Sparkles className="w-4 h-4 text-[#124090]" />
                   </div>
                   <span className="text-lg text-gray-100">{item}</span>
                 </li>
@@ -131,7 +131,7 @@ export default function CaseLaboratorySection() {
               className="inline-flex items-center gap-4 bg-white text-[#124090] px-10 py-5 rounded-full text-xl font-bold shadow-2xl hover:shadow-white/50 hover:scale-105 transition-all duration-300"
             >
               Start Your Business Today
-              <ArrowRight className="w-7 h-7" />
+              <ArrowRight className="w-6 h-6" />
             </Link>
           </div>
 

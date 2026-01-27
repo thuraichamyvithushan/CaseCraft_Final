@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function FinalCTA() {
   return (
-    <section className="relative py-16 md:py-28 lg:py-36 overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white">
+    <section className="relative py-12 md:py-20 lg:py-28 overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white">
 
       {/* Floating Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
@@ -20,7 +20,7 @@ export default function FinalCTA() {
 
         {/* Badge */}
         <div className="inline-flex items-center gap-3 bg-gradient-to-r from-[#FADC58] to-[#C79F2B] text-[#124090] px-8 py-4 rounded-full text-lg font-bold uppercase tracking-wider shadow-2xl mb-8 animate-bounce">
-          <Sparkles className="w-6 h-6" />
+          <Sparkles className="w-5 h-5" />
           Your Memories Deserve This
         </div>
 
@@ -60,7 +60,7 @@ export default function FinalCTA() {
           >
             <span className="relative z-10 flex items-center gap-2 sm:gap-6">
               Start Designing Now
-              <ArrowRight className="w-5 h-5 sm:w-12 sm:h-12 transition-transform duration-300 group-hover:translate-x-2 sm:group-hover:translate-x-4" />
+              <ArrowRight className="w-5 h-5 sm:w-8 sm:h-8 transition-transform duration-300 group-hover:translate-x-2 sm:group-hover:translate-x-4" />
             </span>
 
             {/* Shine Effect */}

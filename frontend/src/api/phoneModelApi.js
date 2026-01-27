@@ -69,10 +69,10 @@ export const adminRemoveTemplateFromModel = async (modelId, templateIndex, token
   return data;
 };
 
-export const adminUpdateModelMockup = async (modelId, mockupImage, coverArea, coverSize, token, name, price, cameraOverlay) => {
+export const adminUpdateModelMockup = async (modelId, mockupImage, coverArea, coverSize, token, name, price, cameraOverlay, category) => {
   const { data } = await adminClient.patch(
     `phone-models/${modelId}/mockup`,
-    { mockupImage, coverArea, coverSize, name, price, cameraOverlay },
+    { mockupImage, coverArea, coverSize, name, price, cameraOverlay, category },
     {
       headers: {
         Authorization: `Bearer ${token}`

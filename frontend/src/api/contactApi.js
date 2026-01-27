@@ -47,3 +47,10 @@ export const deleteContactMessage = async (id, token) => {
     });
     return data;
 };
+
+export const replyToContactMessage = async (id, replyMessage, token) => {
+    const { data } = await adminClient.post(`/${id}/reply`, { replyMessage }, {
+        headers: { Authorization: `Bearer ${token}` }
+    });
+    return data;
+};

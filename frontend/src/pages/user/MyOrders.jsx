@@ -29,7 +29,6 @@ const MyOrders = () => {
     fetchOrders();
   }, [token]);
 
-  // Reset to page 1 when orders change
   useEffect(() => {
     setCurrentPage(1);
   }, [orders]);
@@ -66,7 +65,6 @@ const MyOrders = () => {
             </p>
           </div>
 
-          {/* Orders List */}
           <div className="rounded-3xl border border-slate-200 bg-white shadow-xl overflow-hidden">
             {orders.length === 0 ? (
               <div className="p-12 text-center">
@@ -89,8 +87,8 @@ const MyOrders = () => {
                   {paginatedOrders.map((order) => (
                     <div key={order._id} className="p-6 transition-all hover:bg-gradient-to-r hover:from-blue-50/50 hover:to-purple-50/50">
                       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-                        <div className="flex items-start gap-4">
-                          <div className="relative h-24 w-16 flex-shrink-0 overflow-hidden rounded-xl border-2 border-slate-200 bg-slate-50">
+                        <div className="flex flex-col sm:flex-row items-start gap-4 flex-1">
+                          <div className="relative h-28 w-20 flex-shrink-0 overflow-hidden rounded-xl border-2 border-slate-200 bg-white shadow-sm">
                             <img
                               src={order.items?.[0]?.designImage || "/placeholder.png"}
                               alt="design preview"
@@ -100,22 +98,27 @@ const MyOrders = () => {
                               }}
                             />
                           </div>
-                          <div>
-                            <h3 className="text-lg font-bold text-slate-800">{order.items?.[0]?.productName || "Phone Case"}</h3>
-                            <p className="mt-1 text-sm text-slate-500">
-                              Order ID: <span className="font-mono font-semibold">#{order._id.slice(-8)}</span>
-                            </p>
-                            <p className="mt-1 flex items-center gap-1 text-sm text-slate-500">
-                              <Calendar className="h-4 w-4" />
-                              {new Date(order.createdAt).toLocaleDateString()}
-                            </p>
-                            <p className="mt-1 text-sm font-medium text-slate-700">
-                              Quantity: {order.items?.[0]?.quantity || 1} | Price: ${order.items?.[0]?.price || 0}
-                            </p>
+                          <div className="flex-1 w-full">
+                            <h3 className="text-xl font-bold text-slate-800">{order.items?.[0]?.productName || "Phone Case"}</h3>
+                            <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-y-1 gap-x-4">
+                              <p className="text-sm text-slate-500">
+                                Order ID: <span className="font-mono font-semibold">#{order._id.slice(-8)}</span>
+                              </p>
+                              <p className="flex items-center gap-1 text-sm text-slate-500">
+                                <Calendar className="h-4 w-4" />
+                                {new Date(order.createdAt).toLocaleDateString()}
+                              </p>
+                              <p className="text-sm font-medium text-slate-700">
+                                Quantity: {order.items?.[0]?.quantity || 1}
+                              </p>
+                              <p className="text-sm font-bold text-[#02225b]">
+                                Price: ${order.items?.[0]?.price || 0}
+                              </p>
+                            </div>
                           </div>
                         </div>
 
-                        <div className="flex flex-col items-start gap-3 lg:items-end">
+                        <div className="flex flex-row sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-4 border-t sm:border-t-0 border-slate-100 pt-4 sm:pt-0">
                           <span
                             className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold ${order.status === "confirmed"
                               ? "bg-emerald-100 text-emerald-700"
@@ -123,15 +126,15 @@ const MyOrders = () => {
                               }`}
                           >
                             {order.status === "confirmed" ? (
-                              <CheckCircle className="h-4 w-4" />
+                              <CheckCircle className="h-3.5 w-3.5" />
                             ) : (
-                              <Clock className="h-4 w-4" />
+                              <Clock className="h-3.5 w-3.5" />
                             )}
                             {order.status || "pending"}
                           </span>
                           <button
                             onClick={() => setSelectedOrder(order)}
-                            className="rounded-full border-2 border-slate-200 bg-white px-6 py-2 text-sm font-semibold text-slate-700 transition-all hover:border-[#FFC107] hover:bg-[#FFC107]/10 hover:text-[#02225b]"
+                            className="rounded-full bg-[#02225b] px-6 py-2.5 text-sm font-bold text-white shadow-lg transition-all hover:bg-[#02225b]/90 active:scale-95"
                           >
                             View Details
                           </button>
@@ -141,7 +144,6 @@ const MyOrders = () => {
                   ))}
                 </div>
 
-                {/* Pagination */}
                 {totalPages > 1 && (
                   <div className="flex flex-col items-center justify-between gap-4 border-t border-slate-200 p-6 sm:flex-row">
                     <p className="text-sm text-slate-600">
@@ -180,10 +182,9 @@ const MyOrders = () => {
         </main>
       </div>
 
-      {/* Order Details Modal - Responsive */}
       {selectedOrder && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm overflow-y-auto">
-          <div className="my-8 w-full max-w-4xl rounded-3xl bg-white p-6 shadow-2xl md:p-8">
+        <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/60 p-4 backdrop-blur-sm overflow-y-auto">
+          <div className="my-auto md:my-8 w-full max-w-4xl rounded-3xl bg-white p-6 shadow-2xl md:p-8">
             <div className="mb-6 flex items-start justify-between">
               <div>
                 <h2 className="bg-gradient-to-r from-[#02225b] to-[#FFC107] bg-clip-text text-xl font-bold text-transparent md:text-2xl">
@@ -202,22 +203,18 @@ const MyOrders = () => {
             </div>
 
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-              {/* Left: Design Image */}
-              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 p-6 md:p-8">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#02225b]/10 to-[#02225b]/10"></div>
+              <div className="relative overflow-hidden rounded-2xl bg-slate-50 border border-slate-100 p-4 md:p-8">
                 <img
                   src={selectedOrder.items?.[0]?.designImage || "/placeholder.png"}
                   alt="full design"
-                  className="relative z-10 mx-auto max-h-[400px] w-full rounded-xl object-contain shadow-2xl md:max-h-[500px]"
+                  className="relative z-10 mx-auto max-h-[300px] sm:max-h-[400px] md:max-h-[500px] w-full rounded-xl object-contain shadow-xl"
                   onError={(e) => {
-                    e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600' viewBox='0 0 400 600'%3E%3Crect fill='%23334155' width='400' height='600'/%3E%3Ctext x='200' y='300' font-family='Arial' font-size='24' fill='%23cbd5e1' text-anchor='middle'%3ENo Image Available%3C/text%3E%3C/svg%3E";
+                    e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600' viewBox='0 0 400 600'%3E%3Crect fill='%23f8fafc' width='400' height='600'/%3E%3Ctext x='200' y='300' font-family='Arial' font-size='24' fill='%2394a3b8' text-anchor='middle'%3ENo Image Available%3C/text%3E%3C/svg%3E";
                   }}
                 />
               </div>
 
-              {/* Right: All Details */}
               <div className="space-y-6">
-                {/* Order Info */}
                 <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 md:p-6">
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div>
@@ -253,7 +250,6 @@ const MyOrders = () => {
                   </div>
                 </div>
 
-                {/* Shipping Info */}
                 <div className="rounded-2xl border border-slate-200 bg-white p-4 md:p-6">
                   <h3 className="mb-4 text-lg font-bold text-slate-800">Shipping Information</h3>
                   <div className="space-y-4">

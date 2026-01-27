@@ -19,7 +19,8 @@ export const createPhoneModel = async (req, res, next) => {
       mockupImage,
       cameraOverlay,
       coverArea,
-      price
+      price,
+      category
     } = req.body;
 
     if (!name || !key) {
@@ -54,7 +55,8 @@ export const createPhoneModel = async (req, res, next) => {
         width: 300,
         height: 500
       },
-      price: price || 100
+      price: price || 100,
+      category: category || "Apple"
     });
 
     res.status(201).json(model);
@@ -66,7 +68,7 @@ export const createPhoneModel = async (req, res, next) => {
 export const updatePhoneModelMockup = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { mockupImage, cameraOverlay, coverArea, coverSize, price, name } = req.body;
+    const { mockupImage, cameraOverlay, coverArea, coverSize, price, name, category } = req.body;
 
     const model = await PhoneModel.findById(id);
     if (!model) {
@@ -93,9 +95,12 @@ export const updatePhoneModelMockup = async (req, res, next) => {
       model.coverSize = coverSize;
     }
 
-    // ⭐ allow updating price
     if (price !== undefined) {
       model.price = price;
+    }
+
+    if (category) {
+      model.category = category;
     }
 
     await model.save();

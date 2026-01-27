@@ -12,7 +12,6 @@ export const createOrder = async (req, res, next) => {
       return res.status(400).json({ message: "Customer details are required" });
     }
 
-    // Basic validation for items
     const sanitizedItems = items.map((item) => ({
       productId: item.productId,
       productName: item.productName,
@@ -25,13 +24,10 @@ export const createOrder = async (req, res, next) => {
       category: item.category || "phone_case"
     }));
 
-    // Helper to determine if an item is a pet asset
     const isPetItem = (item) => {
-      // Explicit category check
       if (item.category === "pet_asset") return true;
       if (item.category === "phone_case") return false;
 
-      // Legacy heuristic
       return (
         (item.customText && item.customText.trim().length > 0) ||
         (item.productName && item.productName.toLowerCase().includes("pet"))
@@ -43,7 +39,6 @@ export const createOrder = async (req, res, next) => {
 
     sanitizedItems.forEach((item) => {
       if (isPetItem(item)) {
-        // Ensure category is set for future clarity
         item.category = "pet_asset";
         petItems.push(item);
       } else {
@@ -74,12 +69,11 @@ export const createOrder = async (req, res, next) => {
           phone,
           address,
           total: group.total,
-          status: "pending" // Default status
+          status: "pending" 
         })
       )
     );
 
-    // Return all created orders so the frontend gets all IDs
     res.status(201).json(createdOrders);
   } catch (error) {
     next(error);

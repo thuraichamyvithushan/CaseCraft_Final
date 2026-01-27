@@ -5,7 +5,7 @@ import vendingmachine from "../../assets/vendingmachine.png"
 
 export default function AboutSection() {
   return (
-    <section className="relative py-12 md:py-24 overflow-hidden bg-gradient-to-br from-[#124090] via-[#0b305f] to-[#124090]">
+    <section className="relative py-10 md:py-20 overflow-hidden bg-gradient-to-br from-[#124090] via-[#0b305f] to-[#124090]">
 
       {/* Background Glows - Gold themed */}
       <div className="absolute inset-0">
@@ -21,7 +21,7 @@ export default function AboutSection() {
           <div className="space-y-10">
             <div>
               <div className="inline-flex items-center gap-2 sm:gap-3 bg-[#FADC58]/20 text-[#FADC58] px-4 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider mb-6 shadow-xl border border-[#FADC58]/30">
-                <HeartHandshake className="w-5 h-5" />
+                <HeartHandshake className="w-4 h-4" />
                 Made for You, with Care
               </div>
               <h2 className="text-4xl md:text-7xl font-black text-white leading-tight">
@@ -41,30 +41,30 @@ export default function AboutSection() {
             </p>
 
             {/* Glass Stats - Fully Mobile Responsive with Laptop Font Adjustment */}
-<div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12">
-  {[
-    { number: "100K+", label: "Cases Created", gradient: "from-[#FADC58] to-[#C79F2B]" },
-    { number: "4.9★", label: "Average Rating", gradient: "from-[#FADC58] to-[#C79F2B]" },
-    { number: "24hr", label: "Proof Turnaround", gradient: "from-[#3065C5] to-[#3065C5]" }
-  ].map((stat, i) => (
-    <div key={i} className="relative group">
-      <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-20 rounded-3xl blur-xl group-hover:opacity-40 transition-opacity duration-500`} />
-      <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 text-center hover:bg-white/20 transition-all">
-        <div className={`text-4xl sm:text-5xl lg:text-4xl xl:text-4xl font-black bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent`}>
-          {stat.number}
-        </div>
-        <div className="text-gray-300 text-sm mt-2 font-medium">{stat.label}</div>
-      </div>
-    </div>
-  ))}
-</div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12">
+              {[
+                { number: "100K+", label: "Cases Created", gradient: "from-[#FADC58] to-[#C79F2B]" },
+                { number: "4.9★", label: "Average Rating", gradient: "from-[#FADC58] to-[#C79F2B]" },
+                { number: "24hr", label: "Proof Turnaround", gradient: "from-[#3065C5] to-[#3065C5]" }
+              ].map((stat, i) => (
+                <div key={i} className="relative group">
+                  <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-20 rounded-3xl blur-xl group-hover:opacity-40 transition-opacity duration-500`} />
+                  <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 text-center hover:bg-white/20 transition-all">
+                    <div className={`text-4xl sm:text-5xl lg:text-4xl xl:text-4xl font-black bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent`}>
+                      {stat.number}
+                    </div>
+                    <div className="text-gray-300 text-sm mt-2 font-medium">{stat.label}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
 
             <Link
               to="/about"
               className="group inline-flex items-center gap-2 sm:gap-4 bg-gradient-to-r from-[#FADC58] to-[#C79F2B] text-[#124090] px-4 sm:px-10 py-3 sm:py-6 rounded-full text-base sm:text-xl font-bold shadow-2xl hover:shadow-[#FADC58]/60 hover:scale-105 transition-all duration-300"
             >
               Our Story & Promise
-              <ArrowRight className="w-5 h-5 sm:w-7 sm:h-7 transition-transform group-hover:translate-x-1 sm:group-hover:translate-x-3" />
+              <ArrowRight className="w-4 h-4 sm:w-6 sm:h-6 transition-transform group-hover:translate-x-1 sm:group-hover:translate-x-3" />
             </Link>
 
           </div>
@@ -102,7 +102,7 @@ export default function AboutSection() {
               />
               {/* Floating Badge */}
               <div className="absolute -top-6 -right-6 bg-gradient-to-r from-[#FADC58] to-[#C79F2B] text-[#124090] px-6 py-3 rounded-full font-bold shadow-2xl flex items-center gap-2 animate-bounce">
-                <Sparkles className="w-6 h-6" />
+                <Sparkles className="w-5 h-5" />
                 Real Memories
               </div>
             </div>

@@ -48,11 +48,16 @@ const phoneModelSchema = new mongoose.Schema(
       height: { type: Number, default: 500 }
     },
 
-    // ⭐ NEW — Add price for each phone model
     price: {
       type: Number,
       required: true,
-      default: 100 // or any default price you want
+      default: 10
+    },
+    category: {
+      type: String,
+      required: true,
+      enum: ["Apple", "Samsung", "Google"],
+      default: "Apple"
     }
   },
   { timestamps: true }

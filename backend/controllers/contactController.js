@@ -1,9 +1,7 @@
 import ContactMessage from "../models/contactMessage.js";
 import sendEmail from "../utils/sendEmail.js";
 
-// @desc    Submit contact form
-// @route   POST /api/contact
-// @access  Public
+
 export const submitContactForm = async (req, res) => {
     try {
         const { name, email, phone, comment } = req.body;
@@ -19,7 +17,6 @@ export const submitContactForm = async (req, res) => {
             comment
         });
 
-        // Send email to admin
         const adminEmail = process.env.ADMIN_EMAIL || process.env.EMAIL_USER;
         const emailSubject = `New Contact Form Submission from ${name}`;
         const emailHtml = `
@@ -39,7 +36,6 @@ export const submitContactForm = async (req, res) => {
             });
         } catch (emailError) {
             console.error("Error sending admin notification email:", emailError);
-            // We don't return error here because the message is already saved in DB
         }
 
         res.status(201).json({
@@ -52,9 +48,6 @@ export const submitContactForm = async (req, res) => {
     }
 };
 
-// @desc    Get all contact messages
-// @route   GET /api/admin/contacts
-// @access  Private/Admin
 export const getContactMessages = async (req, res) => {
     try {
         const messages = await ContactMessage.find().sort({ createdAt: -1 });
@@ -64,9 +57,6 @@ export const getContactMessages = async (req, res) => {
     }
 };
 
-// @desc    Update message status
-// @route   PATCH /api/admin/contacts/:id
-// @access  Private/Admin
 export const updateMessageStatus = async (req, res) => {
     try {
         const { status } = req.body;
@@ -86,9 +76,6 @@ export const updateMessageStatus = async (req, res) => {
     }
 };
 
-// @desc    Delete a message
-// @route   DELETE /api/admin/contacts/:id
-// @access  Private/Admin
 export const deleteContactMessage = async (req, res) => {
     try {
         const message = await ContactMessage.findByIdAndDelete(req.params.id);
@@ -98,6 +85,60 @@ export const deleteContactMessage = async (req, res) => {
         }
 
         res.status(200).json({ message: "Message deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
+export const replyToMessage = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { replyMessage } = req.body;
+
+        if (!replyMessage) {
+            return res.status(400).json({ message: "Reply message is required" });
+        }
+
+        const message = await ContactMessage.findById(id);
+
+        if (!message) {
+            return res.status(404).json({ message: "Message not found" });
+        }
+
+        try {
+            await sendEmail({
+                to: message.email,
+                subject: "Re: Inquiry from CaseCraft",
+                html: `
+                    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; rounded-lg: 12px;">
+                        <h2 style="color: #02225b; border-bottom: 2px solid #FFC107; padding-bottom: 10px;">CaseCraft Response</h2>
+                        <p>Hi ${message.name},</p>
+                        <p>Thank you for reaching out to us. Here is our response to your inquiry:</p>
+                        <div style="background-color: #f8fafc; padding: 15px; border-left: 4px solid #02225b; margin: 20px 0; font-style: italic;">
+                            ${replyMessage}
+                        </div>
+                        <p>For your reference, your original message was:</p>
+                        <p style="color: #64748b; font-size: 0.9em; border-top: 1px solid #e2e8f0; padding-top: 10px;">
+                            ${message.comment}
+                        </p>
+                        <p style="margin-top: 30px;">Best regards,<br>The CaseCraft Team</p>
+                    </div>
+                `
+            });
+
+            message.status = "replied";
+            await message.save();
+
+            res.status(200).json({
+                success: true,
+                message: "Reply sent successfully",
+                data: message
+            });
+        } catch (emailError) {
+            console.error("Error sending reply email:", emailError);
+            res.status(500).json({ message: "Failed to send email" });
+        }
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

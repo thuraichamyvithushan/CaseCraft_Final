@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminSidebar from "../components/AdminSidebar.jsx";
-import { getContactMessages, updateMessageStatus, deleteContactMessage } from "../api/contactApi.js";
+import { getContactMessages, updateMessageStatus, deleteContactMessage, replyToContactMessage } from "../api/contactApi.js";
 import {
     Mail,
     Search,
@@ -12,7 +12,8 @@ import {
     X,
     Clock,
     Reply,
-    Phone
+    Phone,
+    Send
 } from "lucide-react";
 
 const ADMIN_STORAGE_KEY = "cpc_admin_token";
@@ -25,6 +26,9 @@ const ContactMessages = () => {
     const [selectedMessage, setSelectedMessage] = useState(null);
     const [updating, setUpdating] = useState(false);
     const [filter, setFilter] = useState("all");
+    const [isReplyModalOpen, setIsReplyModalOpen] = useState(false);
+    const [replyText, setReplyText] = useState("");
+    const [sendingReply, setSendingReply] = useState(false);
 
     const fetchMessages = useCallback(async () => {
         const token = localStorage.getItem(ADMIN_STORAGE_KEY);
@@ -83,6 +87,28 @@ const ContactMessages = () => {
         }
     };
 
+    const handleSendReply = async () => {
+        if (!replyText.trim()) return;
+
+        const token = localStorage.getItem(ADMIN_STORAGE_KEY);
+        if (!token) return;
+
+        setSendingReply(true);
+        try {
+            await replyToContactMessage(selectedMessage._id, replyText, token);
+            alert("Reply sent successfully!");
+            setIsReplyModalOpen(false);
+            setReplyText("");
+            await fetchMessages();
+            setSelectedMessage({ ...selectedMessage, status: 'replied' });
+        } catch (error) {
+            console.error(error);
+            alert("Failed to send reply");
+        } finally {
+            setSendingReply(false);
+        }
+    };
+
     const filteredMessages = messages.filter(msg => {
         const matchesSearch = msg.name.toLowerCase().includes(search.toLowerCase()) ||
             msg.email.toLowerCase().includes(search.toLowerCase()) ||
@@ -108,7 +134,6 @@ const ContactMessages = () => {
                 <AdminSidebar />
 
                 <main className="flex-1 space-y-6">
-                    {/* Header Card */}
                     <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200/50">
                         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                             <div className="flex items-center gap-4">
@@ -135,15 +160,14 @@ const ContactMessages = () => {
                         </div>
                     </div>
 
-                    {/* Filter Tabs */}
-                    <div className="flex gap-2 pb-2 overflow-x-auto scrollbar-hide">
+                    <div className="flex gap-3 py-6 px-6 -mx-6 overflow-x-auto scrollbar-hide items-center">
                         {["all", "new", "read", "replied"].map((f) => (
                             <button
                                 key={f}
                                 onClick={() => setFilter(f)}
-                                className={`px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-sm ${filter === f
-                                    ? "bg-[#02225b] text-white ring-2 ring-[#02225b] ring-offset-2"
-                                    : "bg-white text-slate-500 hover:bg-slate-50 border border-slate-200 hover:text-slate-900"
+                                className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap ${filter === f
+                                    ? "bg-[#02225b] text-white shadow-lg shadow-[#02225b]/20 ring-2 ring-[#02225b] ring-offset-2 scale-105"
+                                    : "bg-white text-slate-400 hover:bg-slate-50 border border-slate-200 hover:text-[#02225b]"
                                     }`}
                             >
                                 {f}
@@ -151,7 +175,6 @@ const ContactMessages = () => {
                         ))}
                     </div>
 
-                    {/* Table Container */}
                     <div className="rounded-2xl bg-white shadow-sm ring-1 ring-slate-200/50 overflow-hidden">
                         <div className="overflow-x-auto">
                             <table className="min-w-full divide-y divide-slate-200">
@@ -224,7 +247,6 @@ const ContactMessages = () => {
                 </main>
             </div>
 
-            {/* Message Detail Modal */}
             {selectedMessage && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
                     <div className="w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden relative animate-in fade-in zoom-in duration-200">
@@ -283,17 +305,74 @@ const ContactMessages = () => {
                                         <CheckCircle2 className="w-4 h-4" /> Mark Replied
                                     </button>
                                 )}
-                                <a
-                                    href={`mailto:${selectedMessage.email}?subject=Re: Inquiry from CaseCraft`}
+                                <button
+                                    onClick={() => setIsReplyModalOpen(true)}
                                     className="flex-1 min-w-[140px] bg-[#02225b] text-white py-3.5 px-4 rounded-xl font-bold text-xs uppercase tracking-widest hover:brightness-110 transition-all shadow-lg shadow-indigo-200 flex items-center justify-center gap-2"
                                 >
                                     <Reply className="w-4 h-4" /> Compose Reply
-                                </a>
+                                </button>
                                 <button
                                     onClick={() => handleDelete(selectedMessage._id)}
                                     className="bg-rose-50 text-rose-500 p-3.5 rounded-xl hover:bg-rose-500 hover:text-white transition-all border border-rose-100"
                                 >
                                     <Trash2 className="w-5 h-5" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {isReplyModalOpen && (
+                <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                    <div className="w-full max-w-xl bg-white rounded-3xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+                        <div className="flex items-center justify-between border-b border-slate-100 p-6">
+                            <h3 className="text-xl font-bold text-slate-900">Reply to {selectedMessage.name}</h3>
+                            <button
+                                onClick={() => setIsReplyModalOpen(false)}
+                                className="p-2 rounded-lg bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
+                        </div>
+                        <div className="p-6 space-y-4">
+                            <div>
+                                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Recipient</label>
+                                <div className="bg-slate-50 p-3 rounded-xl text-slate-600 font-medium border border-slate-100 flex items-center gap-2">
+                                    <Mail className="w-4 h-4 text-indigo-500" /> {selectedMessage.email}
+                                </div>
+                            </div>
+                            <div>
+                                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Message</label>
+                                <textarea
+                                    className="w-full rounded-2xl border-2 border-slate-100 bg-slate-50 p-4 text-sm transition-all focus:border-[#02225b] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#02225b]/10 min-h-[200px] resize-none"
+                                    placeholder="Type your reply here..."
+                                    value={replyText}
+                                    onChange={(e) => setReplyText(e.target.value)}
+                                ></textarea>
+                            </div>
+                            <div className="flex gap-3">
+                                <button
+                                    onClick={() => setIsReplyModalOpen(false)}
+                                    className="flex-1 bg-slate-100 text-slate-600 py-4 px-4 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-slate-200 transition-all"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={handleSendReply}
+                                    disabled={sendingReply || !replyText.trim()}
+                                    className="flex-[2] bg-gradient-to-r from-[#02225b] to-indigo-600 text-white py-4 px-4 rounded-xl font-bold text-xs uppercase tracking-widest hover:brightness-110 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-indigo-100"
+                                >
+                                    {sendingReply ? (
+                                        <>
+                                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                            Sending...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Send className="w-4 h-4" /> Send Reply
+                                        </>
+                                    )}
                                 </button>
                             </div>
                         </div>

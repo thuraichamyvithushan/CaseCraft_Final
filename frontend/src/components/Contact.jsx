@@ -158,7 +158,6 @@ const Contact = () => {
                 }`}
               style={{ transitionDelay: "200ms" }}
             >
-              {/* Gradient accent */}
               <div className="absolute top-0 right-0 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[#FADC58]/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="flex items-center gap-2 sm:gap-3 relative z-10">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#124090] flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 shadow-md">
@@ -175,12 +174,10 @@ const Contact = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-            {/* Contact Form */}
             <div className={`relative backdrop-blur-xl bg-white/60 rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 border border-white/30 transform transition-all duration-700 hover:bg-white/80 hover:shadow-2xl overflow-hidden group ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
               }`}
               style={{ transitionDelay: "300ms" }}
             >
-              {/* Decorative corner accent */}
               <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-[#FADC58]/20 to-transparent rounded-bl-full"></div>
               <div className="relative z-10">
                 <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 md:mb-6">Get in Touch</h2>
@@ -301,12 +298,10 @@ const Contact = () => {
 
             {/* Contact Information */}
             <div className="space-y-4 sm:space-y-6">
-              {/* Address */}
               <div className={`relative backdrop-blur-xl bg-white/60 rounded-lg sm:rounded-xl shadow-xl p-4 sm:p-6 border border-white/30 transform transition-all duration-700 hover:bg-white/80 hover:shadow-2xl hover:scale-[1.02] group overflow-hidden ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
                 }`}
                 style={{ transitionDelay: "400ms" }}
               >
-                {/* Gradient accent */}
                 <div className="absolute top-0 right-0 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[#FADC58]/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="relative z-10 flex items-start gap-3 sm:gap-4">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br from-[#124090] to-[#0b305f] flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 shadow-lg">
@@ -324,7 +319,6 @@ const Contact = () => {
                 </div>
               </div>
 
-              {/* Phone */}
               <div className={`relative backdrop-blur-xl bg-white/60 rounded-lg sm:rounded-xl shadow-xl p-4 sm:p-6 border border-white/30 transform transition-all duration-700 hover:bg-white/80 hover:shadow-2xl hover:scale-[1.02] group overflow-hidden ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
                 }`}
                 style={{ transitionDelay: "500ms" }}
@@ -344,7 +338,7 @@ const Contact = () => {
                       rel="noopener noreferrer"
                       className="text-sm sm:text-base text-[#124090] hover:underline font-medium transition-all hover:scale-105 inline-block break-all"
                     >
-                      WhatsApp +61 431 545 553
+                      WhatsApp 0450 662 270
                     </a>
                   </div>
                 </div>
@@ -365,16 +359,14 @@ const Contact = () => {
                   <div>
                     <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-1 sm:mb-2 group-hover:text-[#C79F2B] transition-colors">Email</h3>
                     <a
-                      href="mailto:Snapshellau@gmail.com"
+                      href="mailto:hello@casecraft.com"
                       className="text-sm sm:text-base text-[#124090] hover:underline font-medium transition-all hover:scale-105 inline-block break-all"
                     >
-                      Snapshellau@gmail.com
-                    </a>
+                             hello@casecraft.com                    </a>
                   </div>
                 </div>
               </div>
 
-              {/* Business Hours */}
               <div className={`relative backdrop-blur-xl bg-white/60 rounded-lg sm:rounded-xl shadow-xl p-4 sm:p-6 border border-white/30 transform transition-all duration-700 hover:bg-white/80 hover:shadow-2xl hover:scale-[1.02] group overflow-hidden ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
                 }`}
                 style={{ transitionDelay: "700ms" }}

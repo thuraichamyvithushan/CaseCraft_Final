@@ -14,10 +14,6 @@ export const fetchPetProducts = async (req, res) => {
 export const adminCreatePetProduct = async (req, res) => {
   try {
     const { name, category, key, price, images, templates } = req.body;
-
-    // Allow templates to be passed, or default to empty array
-    // If images are passed but no templates, maybe we should use images as templates?
-    // For now, let's respect what is passed.
     const productTemplates = templates || (images ? images : []);
 
     const product = new PetProduct({

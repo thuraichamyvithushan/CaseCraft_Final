@@ -58,18 +58,15 @@ export const registerUser = async (req, res, next) => {
   } catch (error) {
     console.error("Registration error:", error);
 
-    // Handle Mongoose validation errors
     if (error.name === "ValidationError") {
       const messages = Object.values(error.errors).map((err) => err.message);
       return res.status(400).json({ message: messages.join(", ") });
     }
 
-    // Handle duplicate key error (MongoDB)
     if (error.code === 11000) {
       return res.status(409).json({ message: "Email already registered" });
     }
 
-    // Handle other errors
     next(error);
   }
 };
@@ -152,7 +149,7 @@ export const forgotPassword = async (req, res) => {
 
     const resetToken = crypto.randomBytes(32).toString("hex");
     user.resetPasswordToken = resetToken;
-    user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+    user.resetPasswordExpires = Date.now() + 3600000; 
     await user.save();
 
     const resetUrl = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
@@ -185,10 +182,9 @@ export const resetPassword = async (req, res) => {
 
     if (!password) return res.status(400).json({ message: "Password is required" });
 
-    // Find user by token and check expiration
     const user = await User.findOne({
       resetPasswordToken: token,
-      resetPasswordExpires: { $gt: Date.now() }, // not expired
+      resetPasswordExpires: { $gt: Date.now() },
     });
 
     if (!user) return res.status(400).json({ message: "Invalid or expired token" });
@@ -196,7 +192,6 @@ export const resetPassword = async (req, res) => {
     // Update password
     user.password = password;
 
-    // Clear reset token and expiration
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;
 
@@ -209,7 +204,6 @@ export const resetPassword = async (req, res) => {
   }
 };
 
-// Sync Cart
 export const syncCart = async (req, res, next) => {
   try {
     const { cart } = req.body;
@@ -224,7 +218,6 @@ export const syncCart = async (req, res, next) => {
   }
 };
 
-// Get Cart
 export const getCart = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);

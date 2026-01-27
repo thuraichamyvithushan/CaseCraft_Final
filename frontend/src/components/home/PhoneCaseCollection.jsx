@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import case1 from "../../assets/cases/case1.webp";
 import case2 from "../../assets/cases/case2.webp";
 import case3 from "../../assets/cases/case3.webp";
@@ -39,13 +39,12 @@ const phoneProducts = [
 
 export default function PhoneCaseCollection() {
   return (
-    <section className="py-12 md:py-24 bg-gradient-to-br from-[#124090]/5 via-white to-[#FADC58]/5 overflow-hidden">
+    <section className="py-10 md:py-20 bg-gradient-to-br from-[#124090]/5 via-white to-[#FADC58]/5 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
 
-        {/* Header */}
         <div className="text-center mb-16 md:mb-20">
           <div className="inline-flex items-center sm:gap-2 bg-gradient-to-r from-[#FADC58] to-[#C79F2B] text-[#124090] px-6 sm:px-6 py-2 sm:py-3 rounded-full text-sm font-bold uppercase tracking-wider mb-6 shadow-xl">
-            <Sparkles className="w-5 h-5" />
+            <Sparkles className="w-4 h-4" />
             Premium Protection Meets Personality
           </div>
           <h2 className="text-5xl md:text-7xl lg:text-5xl font-black text-[#124090] leading-tight">
@@ -57,7 +56,6 @@ export default function PhoneCaseCollection() {
           </p>
         </div>
 
-        {/* Modern Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
           {phoneProducts.map((product, index) => (
@@ -67,25 +65,21 @@ export default function PhoneCaseCollection() {
               style={{ transitionDelay: `${index * 100}ms` }}
             >
 
-              {/* Floating Badge */}
               {index === 0 && (
                 <div className="absolute top-4 left-4 z-10 bg-gradient-to-r from-[#3065C5] to-[#124090] text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg">
                   BEST SELLER
                 </div>
               )}
 
-              {/* Image Container */}
               <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
                 <img
                   src={product.image}
                   alt={product.name}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                {/* Gradient Overlay on Hover */}
                 <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
 
-              {/* Content */}
               <div className="p-8">
                 <h3 className="text-xl md:text-2xl font-black text-[#124090] mb-3">
                   {product.name}
@@ -94,7 +88,6 @@ export default function PhoneCaseCollection() {
                   {product.price}
                 </div>
 
-                {/* Features */}
                 <ul className="space-y-3 mb-8">
                   {product.features.map((feature, i) => (
                     <li key={i} className="flex items-center gap-3">
@@ -108,14 +101,12 @@ export default function PhoneCaseCollection() {
                   ))}
                 </ul>
 
-                {/* CTA */}
-                <Link to="/case-design" className="group/btn block w-full relative bg-gradient-to-r from-[#FADC58] to-[#C79F2B] text-[#124090] py-3 sm:py-5 px-4 sm:px-0 rounded-2xl font-bold text-base sm:text-lg shadow-2xl hover:shadow-[#FADC58]/60 hover:scale-105 transition-all duration-300 overflow-hidden text-center">
+                <Link to="/custom-mobilecase" className="group/btn w-full relative bg-gradient-to-r from-[#FADC58] to-[#C79F2B] text-[#124090] py-3 sm:py-5 px-4 sm:px-0 rounded-2xl font-bold text-base sm:text-lg shadow-2xl hover:shadow-[#FADC58]/60 hover:scale-105 transition-all duration-300 overflow-hidden block text-center">
                   <span className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
                     Customize Now
-                    <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover/btn:translate-x-1 sm:group-hover/btn:translate-x-2" />
+                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover/btn:translate-x-1 sm:group-hover/btn:translate-x-2" />
                   </span>
 
-                  {/* Shine Effect */}
                   <div className="absolute inset-0 bg-white/30 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 skew-x-12" />
                 </Link>
 
@@ -124,11 +115,10 @@ export default function PhoneCaseCollection() {
           ))}
         </div>
 
-        {/* Bottom CTA */}
         <div className="text-center mt-8 sm:mt-16">
-          <Link to="/case-design" className="group inline-flex items-center gap-2 sm:gap-4 text-base sm:text-xl font-bold text-[#124090] hover:text-[#FADC58] transition-colors duration-300">
+          <Link to="/custom-mobilecase" className="group inline-flex items-center gap-2 sm:gap-4 text-base sm:text-xl font-bold text-[#124090] hover:text-[#FADC58] transition-colors duration-300">
             See All Case Types
-            <ArrowRight className="w-5 h-5 sm:w-7 sm:h-7 transition-transform group-hover:translate-x-1 sm:group-hover:translate-x-3" />
+            <ArrowRight className="w-4 h-4 sm:w-6 sm:h-6 transition-transform group-hover:translate-x-1 sm:group-hover:translate-x-3" />
           </Link>
         </div>
 

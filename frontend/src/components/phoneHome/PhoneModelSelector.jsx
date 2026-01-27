@@ -1,40 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Star } from 'lucide-react';
-
-const phoneModels = {
-  Apple: [
-    "iPhone 16 Pro Max", "iPhone 16 Pro", "iPhone 16 Plus", "iPhone 16",
-    "iPhone 15 Pro Max", "iPhone 15 Pro", "iPhone 15 Plus", "iPhone 15",
-    "iPhone 14 Pro Max", "iPhone 14 Pro", "iPhone 14 Plus", "iPhone 14",
-    "iPhone 13 Pro Max", "iPhone 13 Pro", "iPhone 13", "iPhone SE (3rd gen)"
-  ],
-  Samsung: [
-    "Galaxy S24 Ultra", "Galaxy S24+", "Galaxy S24",
-    "Galaxy S23 Ultra", "Galaxy S23+", "Galaxy S23",
-    "Galaxy Z Fold 6", "Galaxy Z Flip 6",
-    "Galaxy A55", "Galaxy A35"
-  ],
-  Google: [
-    "Pixel 9 Pro XL", "Pixel 9 Pro", "Pixel 9",
-    "Pixel 8 Pro", "Pixel 8", "Pixel 8a",
-    "Pixel 7 Pro", "Pixel 7"
-  ],
-  OnePlus: [
-    "OnePlus 13", "OnePlus 12", "OnePlus 12R",
-    "OnePlus Open", "Nord N30"
-  ]
-};
-
-const brands = ["Apple", "Samsung", "Google", "OnePlus"];
+import { fetchPhoneModels } from '../../api/phoneModelApi.js';
 
 export default function PhoneModelSelector() {
   const [activeBrand, setActiveBrand] = useState("Apple");
+  const [models, setModels] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const loadModels = async () => {
+      try {
+        const data = await fetchPhoneModels();
+        setModels(data);
+      } catch (error) {
+        console.error("Failed to load phone models", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadModels();
+  }, []);
 
   const handleModelClick = (modelName) => {
     navigate('/case-design', { state: { initialModel: modelName } });
   };
+
+  // Extract unique categories (brands) from models
+  // Default to Apple, Samsung, Google if no models, or just use what's there
+  const availableBrands = ["Apple", "Samsung", "Google"];
+  // You could also do: const uniqueBrands = [...new Set(models.map(m => m.category || 'Apple'))];
+  // But sticking to the known categories for tabs is safer for UI consistency unless we want dynamic tabs.
+  // The user prompt implied 3 categories, so let's stick to these 3 for now, or maybe make it dynamic if they add more.
+  // Let's stick to the static list for UI layout stability, but filter models dynamically.
+
+  const filteredModels = models.filter(m => (m.category || 'Apple') === activeBrand);
 
   return (
     <section className="py-12 sm:py-16 md:py-24 bg-gray-50">
@@ -71,7 +72,7 @@ export default function PhoneModelSelector() {
               {/* Left: Brand Tabs */}
               <div className="lg:col-span-1">
                 <div className="space-y-2">
-                  {brands.map((brand) => (
+                  {availableBrands.map((brand) => (
                     <button
                       key={brand}
                       onClick={() => setActiveBrand(brand)}
@@ -91,68 +92,47 @@ export default function PhoneModelSelector() {
                     </button>
 
                   ))}
-                  <button
-                    className="
-    w-full text-left
-    px-4 py-3 md:px-6 md:py-4
-    rounded-xl
-    font-medium
-    text-gray-600
-    bg-gray-50
-    hover:bg-gray-100
-    transition
-  "
-                  >
-                    More brands...
-                  </button>
 
                 </div>
               </div>
 
               {/* Right: Model Grid */}
               <div className="lg:col-span-3">
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                  {phoneModels[activeBrand].map((model) => (
-                    <button
-                      key={model}
-                      onClick={() => handleModelClick(model)}
-                      className="
-    group
-    w-full
-    cursor-pointer
-    bg-gray-50 hover:bg-[#124090] hover:text-white
-    px-4 py-3 md:px-5 md:py-4
-    rounded-xl
-    text-center font-medium
-    text-gray-800
-    border border-gray-200 hover:border-transparent
-    transition-all duration-300
-    hover:shadow-lg hover:-translate-y-1
-  "
-                    >
-                      {model}
-                    </button>
+                {loading ? (
+                  <div className="flex justify-center py-12">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#124090]"></div>
+                  </div>
+                ) : filteredModels.length === 0 ? (
+                  <div className="text-center py-12 text-gray-500">
+                    No models found for {activeBrand}.
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                    {filteredModels.map((model) => (
+                      <button
+                        key={model._id}
+                        onClick={() => handleModelClick(model.name)}
+                        className="
+        group
+        w-full
+        cursor-pointer
+        bg-gray-50 hover:bg-[#124090] hover:text-white
+        px-4 py-3 md:px-5 md:py-4
+        rounded-xl
+        text-center font-medium
+        text-gray-800
+        border border-gray-200 hover:border-transparent
+        transition-all duration-300
+        hover:shadow-lg hover:-translate-y-1
+    "
+                      >
+                        {model.name}
+                      </button>
 
-                  ))}
-                </div>
-
-                {/* Optional: "Show more" for Apple */}
-                {activeBrand === "Apple" && (
-                  <div className="mt-6 text-center">
-                    <button
-                      className="
-    text-gray-600 hover:text-gray-900
-    font-medium
-    text-sm md:text-base
-    px-2 py-1 md:px-4 md:py-2
-    transition-colors duration-300
-  "
-                    >
-                      + More {activeBrand} devices...
-                    </button>
-
+                    ))}
                   </div>
                 )}
+
               </div>
             </div>
           </div>

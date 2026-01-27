@@ -13,10 +13,10 @@ const FullSizeVideo = ({
   children = null       // Optional content (text, buttons) on top of video
 }) => {
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-full h-auto md:h-screen overflow-hidden">
       {/* Video Element */}
       <video
-        className="absolute inset-0 w-full h-full object-cover"
+        className="w-full h-auto md:absolute md:inset-0 md:h-full md:object-cover bg-black"
         src={vendingvideo}
         poster={poster}
         autoPlay={autoplay}

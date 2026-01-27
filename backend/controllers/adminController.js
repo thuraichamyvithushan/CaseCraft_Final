@@ -11,13 +11,11 @@ export const getOrders = async (req, res, next) => {
       filter.phoneModel = { $regex: search, $options: "i" };
     }
 
-    // SERVER-SIDE FILTERING FOR ORDER TYPES
     if (type === "phone_case") {
       filter["items"] = {
         $elemMatch: {
           $or: [
             { category: "phone_case" },
-            // Legacy: Not pet if name has no 'pet' AND customText is empty/missing
             {
               category: { $exists: false },
               productName: { $not: { $regex: "pet", $options: "i" } },
@@ -35,7 +33,6 @@ export const getOrders = async (req, res, next) => {
         $elemMatch: {
           $or: [
             { category: "pet_asset" },
-            // Legacy: Pet if name has 'pet' OR customText is present and real
             {
               category: { $exists: false },
               $or: [
@@ -185,7 +182,6 @@ export const updateUserRole = async (req, res, next) => {
       return res.status(400).json({ message: "Invalid role. Must be 'user' or 'admin'" });
     }
 
-    // Prevent admin from removing their own admin access
     if (req.user.id === id && role === "user") {
       return res.status(400).json({ message: "You cannot remove your own admin access" });
     }
@@ -210,7 +206,6 @@ export const deleteUser = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    // Prevent admin from deleting themselves
     if (req.user.id === id) {
       return res.status(400).json({ message: "You cannot delete your own account" });
     }

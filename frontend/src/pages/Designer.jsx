@@ -31,6 +31,7 @@ const Designer = () => {
     const { addItem } = useCart();
     const [models, setModels] = useState([]);
     const [selectedModelId, setSelectedModelId] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState("Apple");
     const [selectedTemplateIndex, setSelectedTemplateIndex] = useState(0);
     const [status, setStatus] = useState("");
     const [saving, setSaving] = useState(false);
@@ -41,18 +42,22 @@ const Designer = () => {
                 const loadedModels = await fetchPhoneModels();
                 setModels(loadedModels);
 
-                // Check if a model was passed via navigation state
                 const initialModelName = location.state?.initialModel;
 
                 if (initialModelName) {
                     const foundModel = loadedModels.find(m => m.name.toLowerCase() === initialModelName.toLowerCase());
                     if (foundModel) {
                         setSelectedModelId(foundModel._id);
+                        setSelectedCategory(foundModel.category || "Apple");
                     } else if (loadedModels.length > 0) {
-                        setSelectedModelId(loadedModels[0]._id);
+                        const defaultModel = loadedModels.find(m => (m.category || 'Apple') === 'Apple') || loadedModels[0];
+                        setSelectedModelId(defaultModel._id);
+                        setSelectedCategory(defaultModel.category || "Apple");
                     }
                 } else if (loadedModels.length > 0) {
-                    setSelectedModelId(loadedModels[0]._id);
+                    const defaultModel = loadedModels.find(m => (m.category || 'Apple') === 'Apple') || loadedModels[0];
+                    setSelectedModelId(defaultModel._id);
+                    setSelectedCategory(defaultModel.category || "Apple");
                 }
 
                 setSelectedTemplateIndex(0);
@@ -547,9 +552,34 @@ const Designer = () => {
                     {/* Phone Model - FIRST on Mobile, Top Left on Desktop */}
                     <div className="order-1 lg:order-none lg:col-start-1 lg:row-start-1">
                         <div className="rounded-xl bg-white p-3 shadow-lg border border-slate-200 sm:rounded-2xl sm:p-4 lg:p-5 lg:rounded-b-none lg:border-b-0">
-                            <div className="flex items-center gap-2 mb-3 sm:mb-4">
-                                <Smartphone className="w-4 h-4 text-[#FFC107] sm:w-5 sm:h-5" />
-                                <h2 className="font-semibold text-slate-800 text-xs sm:text-sm lg:text-base">Phone Model</h2>
+                            {/* Category Tabs */}
+                            <div className="mb-4 flex rounded-xl bg-slate-100/80 p-1">
+                                {['Apple', 'Samsung', 'Google'].map((cat) => (
+                                    <button
+                                        key={cat}
+                                        onClick={() => {
+                                            setSelectedCategory(cat);
+                                            // Auto-select first model of this category
+                                            const firstOfCat = models.find(m => (m.category || 'Apple') === cat);
+                                            if (firstOfCat) {
+                                                setSelectedModelId(firstOfCat._id);
+                                                setSelectedTemplateIndex(0);
+                                                setUserCustomImage(null);
+                                            }
+                                        }}
+                                        className={`flex-1 rounded-lg py-1.5 text-xs font-bold transition-all sm:text-sm ${selectedCategory === cat
+                                            ? 'bg-white text-[#02225b] shadow-sm ring-1 ring-black/5'
+                                            : 'text-slate-500 hover:text-slate-700'
+                                            }`}
+                                    >
+                                        {cat}
+                                    </button>
+                                ))}
+                            </div>
+
+                            <div className="mb-3 flex items-center gap-2 sm:mb-4">
+                                <Smartphone className="h-4 w-4 text-[#FFC107] sm:h-5 sm:w-5" />
+                                <h2 className="text-xs font-semibold text-slate-800 sm:text-sm lg:text-base">Phone Model</h2>
                             </div>
                             <select
                                 value={selectedModelId}
@@ -558,18 +588,20 @@ const Designer = () => {
                                     setSelectedTemplateIndex(0);
                                     setUserCustomImage(null);
                                 }}
-                                className="w-full rounded-lg border-2 border-slate-200 px-3 py-2 text-xs transition-all focus:border-[#FFC107] focus:outline-none focus:ring-2 focus:ring-[#FFC107]/20 sm:rounded-xl sm:px-4 sm:py-3 sm:text-sm lg:text-base"
+                                className="w-full rounded-lg border-2 border-slate-200 px-3 py-3 text-sm transition-all focus:border-[#FFC107] focus:outline-none focus:ring-2 focus:ring-[#FFC107]/20 sm:rounded-xl sm:px-4 sm:py-3 sm:text-sm lg:text-base"
                             >
-                                {models.map((m) => (
-                                    <option key={m._id} value={m._id}>
-                                        {m.name}
-                                    </option>
-                                ))}
+                                {models
+                                    .filter(m => (m.category || 'Apple') === selectedCategory)
+                                    .map((m) => (
+                                        <option key={m._id} value={m._id}>
+                                            {m.name}
+                                        </option>
+                                    ))}
                             </select>
                             {selectedModel && (
-                                <div className="mt-3 rounded-lg bg-[#FFC107]/20 p-3 border border-[#FFC107]/40 sm:mt-4 sm:rounded-xl sm:p-4">
+                                <div className="mt-3 rounded-lg bg-[#FFC107]/20 p-4 border border-[#FFC107]/40 sm:mt-4 sm:rounded-xl sm:p-4">
                                     <p className="text-xs text-[#02225b] font-medium sm:text-sm">Price</p>
-                                    <p className="text-xl font-bold text-[#FFC107] sm:text-2xl lg:text-3xl">
+                                    <p className="text-2xl font-bold text-[#FFC107] sm:text-2xl lg:text-3xl">
                                         ${selectedModel.price || 1000}
                                     </p>
                                 </div>
@@ -682,10 +714,10 @@ const Designer = () => {
                                     />
                                     <button
                                         onClick={triggerUpload}
-                                        className="flex flex-col items-center justify-center gap-1 rounded-xl bg-[#FFC107]/10 px-3 py-2.5 text-[10px] font-bold text-[#02225b] transition-all hover:bg-[#FFC107]/20 active:scale-95 sm:px-5 sm:py-3 sm:text-xs"
+                                        className="flex flex-col items-center justify-center gap-1.5 rounded-xl bg-[#FFC107]/10 px-4 py-3.5 text-xs font-bold text-[#02225b] transition-all hover:bg-[#FFC107]/20 active:scale-95 sm:px-5 sm:py-3 sm:text-xs"
                                         title="Upload Image"
                                     >
-                                        <Upload className="h-4 w-4 sm:h-5 sm:w-5" />
+                                        <Upload className="h-5 w-5 sm:h-5 sm:w-5" />
                                         <span>Upload</span>
                                     </button>
 
@@ -693,42 +725,42 @@ const Designer = () => {
 
                                     <button
                                         onClick={handleZoomIn}
-                                        className="flex flex-col items-center justify-center gap-1 rounded-xl bg-slate-100 px-3 py-2.5 text-[10px] font-bold text-slate-700 transition-all hover:bg-slate-200 active:scale-95 sm:px-5 sm:py-3 sm:text-xs"
+                                        className="flex flex-col items-center justify-center gap-1.5 rounded-xl bg-slate-100 px-4 py-3.5 text-xs font-bold text-slate-700 transition-all hover:bg-slate-200 active:scale-95 sm:px-5 sm:py-3 sm:text-xs"
                                         title="Zoom In"
                                     >
-                                        <ZoomIn className="h-4 w-4 sm:h-5 sm:w-5" />
+                                        <ZoomIn className="h-5 w-5 sm:h-5 sm:w-5" />
                                         <span>Zoom In</span>
                                     </button>
                                     <button
                                         onClick={handleZoomOut}
-                                        className="flex flex-col items-center justify-center gap-1 rounded-xl bg-slate-100 px-3 py-2.5 text-[10px] font-bold text-slate-700 transition-all hover:bg-slate-200 active:scale-95 sm:px-5 sm:py-3 sm:text-xs"
+                                        className="flex flex-col items-center justify-center gap-1.5 rounded-xl bg-slate-100 px-4 py-3.5 text-xs font-bold text-slate-700 transition-all hover:bg-slate-200 active:scale-95 sm:px-5 sm:py-3 sm:text-xs"
                                         title="Zoom Out"
                                     >
-                                        <ZoomOut className="h-4 w-4 sm:h-5 sm:w-5" />
+                                        <ZoomOut className="h-5 w-5 sm:h-5 sm:w-5" />
                                         <span>Zoom Out</span>
                                     </button>
                                     <button
                                         onClick={handleFlip}
-                                        className="flex flex-col items-center justify-center gap-1 rounded-xl bg-slate-100 px-3 py-2.5 text-[10px] font-bold text-slate-700 transition-all hover:bg-slate-200 active:scale-95 sm:px-5 sm:py-3 sm:text-xs"
+                                        className="flex flex-col items-center justify-center gap-1.5 rounded-xl bg-slate-100 px-4 py-3.5 text-xs font-bold text-slate-700 transition-all hover:bg-slate-200 active:scale-95 sm:px-5 sm:py-3 sm:text-xs"
                                         title="Flip Horizontal"
                                     >
-                                        <FlipHorizontal className="h-4 w-4 sm:h-5 sm:w-5" />
+                                        <FlipHorizontal className="h-5 w-5 sm:h-5 sm:w-5" />
                                         <span>Flip</span>
                                     </button>
                                     <button
                                         onClick={handleRotate}
-                                        className="flex flex-col items-center justify-center gap-1 rounded-xl bg-slate-100 px-3 py-2.5 text-[10px] font-bold text-slate-700 transition-all hover:bg-slate-200 active:scale-95 sm:px-5 sm:py-3 sm:text-xs"
+                                        className="flex flex-col items-center justify-center gap-1.5 rounded-xl bg-slate-100 px-4 py-3.5 text-xs font-bold text-slate-700 transition-all hover:bg-slate-200 active:scale-95 sm:px-5 sm:py-3 sm:text-xs"
                                         title="Rotate"
                                     >
-                                        <RotateCw className="h-4 w-4 sm:h-5 sm:w-5" />
+                                        <RotateCw className="h-5 w-5 sm:h-5 sm:w-5" />
                                         <span>Rotate</span>
                                     </button>
                                     <button
                                         onClick={handleReset}
-                                        className="flex flex-col items-center justify-center gap-1 rounded-xl bg-slate-100 px-3 py-2.5 text-[10px] font-bold text-slate-700 transition-all hover:bg-slate-200 active:scale-95 sm:px-5 sm:py-3 sm:text-xs"
+                                        className="flex flex-col items-center justify-center gap-1.5 rounded-xl bg-slate-100 px-4 py-3.5 text-xs font-bold text-slate-700 transition-all hover:bg-slate-200 active:scale-95 sm:px-5 sm:py-3 sm:text-xs"
                                         title="Reset Position"
                                     >
-                                        <Maximize2 className="h-4 w-4 sm:h-5 sm:w-5" />
+                                        <Maximize2 className="h-5 w-5 sm:h-5 sm:w-5" />
                                         <span>Reset</span>
                                     </button>
                                 </div>
@@ -751,9 +783,9 @@ const Designer = () => {
                                 <button
                                     onClick={handleAddToCart}
                                     disabled={saving}
-                                    className="w-full rounded-lg bg-[#FFC107] px-4 py-2.5 text-sm font-semibold text-white shadow-lg transition-all hover:shadow-xl hover:bg-[#FFC107]/90 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 sm:rounded-xl sm:px-5 sm:py-3 lg:rounded-2xl lg:px-8 lg:py-4 lg:text-base"
+                                    className="w-full rounded-lg bg-[#FFC107] px-4 py-4 text-sm font-bold text-white shadow-lg transition-all hover:shadow-xl hover:bg-[#FFC107]/90 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-3 sm:rounded-xl sm:px-5 sm:py-4 lg:rounded-2xl lg:px-8 lg:py-4 lg:text-base uppercase tracking-wider"
                                 >
-                                    <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5" />
+                                    <ShoppingCart className="h-5 w-5 sm:h-5 sm:w-5" />
                                     {saving ? "Adding to Cart..." : "Add to Cart"}
                                 </button>
                             </div>

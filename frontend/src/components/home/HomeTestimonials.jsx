@@ -57,7 +57,7 @@ export default function HomeTestimonials() {
   const t = testimonials[currentIndex];
 
   return (
-    <section className="relative py-16 md:py-24 overflow-hidden bg-gradient-to-br from-[#032a6e] via-[#03152b] to-[#01050d]">
+    <section className="relative py-10 md:py-20 overflow-hidden bg-gradient-to-br from-[#032a6e] via-[#03152b] to-[#01050d]">
 
       {/* Background Glows */}
       <div className="absolute inset-0 pointer-events-none">
@@ -94,7 +94,7 @@ export default function HomeTestimonials() {
 
               {/* Quote Icon */}
               <div className="absolute top-8 left-8 bg-white/20 backdrop-blur p-4 rounded-2xl shadow-xl">
-                <Quote className="w-10 h-10 text-[#FADC58] fill-current" />
+                <Quote className="w-8 h-8 text-[#FADC58] fill-current" />
               </div>
 
               {/* Verified Badge */}
@@ -109,7 +109,7 @@ export default function HomeTestimonials() {
               {/* Stars */}
               <div className="flex gap-1 mb-6">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-7 h-7 fill-[#FADC58] text-[#FADC58]" />
+                  <Star key={i} className="w-6 h-6 fill-[#FADC58] text-[#FADC58]" />
                 ))}
               </div>
 
@@ -134,14 +134,14 @@ export default function HomeTestimonials() {
                     onClick={prev}
                     className="p-3 sm:p-4 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all group flex items-center justify-center"
                   >
-                    <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 group-hover:-translate-x-1 transition-transform" />
+                    <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 group-hover:-translate-x-1 transition-transform" />
                   </button>
 
                   <button
                     onClick={next}
                     className="p-3 sm:p-4 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#FADC58] text-[#124090] hover:bg-[#C79F2B] transition-all group shadow-xl flex items-center justify-center"
                   >
-                    <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
 

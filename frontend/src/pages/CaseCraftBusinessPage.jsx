@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { 
- ArrowRight, 
-  Zap, 
-  Store, 
-  Package, 
-  Droplets, 
-  Rocket, 
-  HeadphonesIcon, 
-  ChevronDown, 
-  Mail, 
-  Phone, 
+import {
+  ArrowRight,
+  Zap,
+  Store,
+  Package,
+  Droplets,
+  Rocket,
+  HeadphonesIcon,
+  ChevronDown,
+  Mail,
+  Phone,
   Sparkles,
   CheckCircle2,
   Users,
@@ -23,7 +23,6 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-// Replace with your real images
 import machineHero from "../assets/vendingmachine-hero.png";
 import FullSizeVideo from "../components/home/FullSizeVideo";
 
@@ -81,121 +80,121 @@ const CaseCraftBusinessPage = () => {
     <div className="min-h-screen bg-gradient-to-b from-white via-[#124090]/5 to-white">
 
       {/* Hero */}
-      <section className="relative py-32 md:py-40 overflow-hidden text-center">
+      <section className="relative py-16 md:py-32 lg:py-40 overflow-hidden text-center">
         <div className="absolute inset-0">
           <div className="absolute top-0 w-full h-full bg-gradient-to-b from-[#FADC58]/30 to-transparent blur-3xl"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#124090]/20 rounded-full blur-3xl"></div>
         </div>
 
         <div className="relative max-w-7xl mx-auto px-6">
-          <div className="inline-flex items-center gap-4 bg-gradient-to-r from-[#FADC58] to-[#C79F2B] text-[#124090] px-12 py-6 rounded-full text-2xl font-black uppercase tracking-wider shadow-2xl mb-10">
-            <Store className="w-10 h-10" />
+          <div className="inline-flex items-center gap-2 md:gap-4 bg-gradient-to-r from-[#FADC58] to-[#C79F2B] text-[#124090] px-6 py-3 md:px-12 md:py-6 rounded-full text-lg md:text-2xl font-black uppercase tracking-wider shadow-2xl mb-6 md:mb-10">
+            <Store className="w-6 h-6 md:w-10 md:h-10" />
             Become a Business Owner Today
           </div>
 
-          <h1 className="text-6xl md:text-8xl font-black text-[#124090] leading-tight max-w-6xl mx-auto">
+          <h1 className="text-4xl md:text-8xl font-black text-[#124090] leading-tight max-w-6xl mx-auto">
             Plug-and-Play<br />
             <span className="bg-gradient-to-r from-[#FADC58] to-[#C79F2B] bg-clip-text text-transparent">
               Phone Case Printing Business
             </span>
           </h1>
 
-          <p className="mt-10 text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
+          <p className="mt-6 md:mt-10 text-lg md:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
             We offer an exciting turnkey opportunity with a fully automated vending machine — fast setup, low overheads, and proven customer demand.
           </p>
 
-          <p className="mt-6 text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="mt-4 md:mt-6 text-base md:text-xl text-gray-600 max-w-3xl mx-auto">
             Whether you have a location or need help finding one — we’ve got flexible options for every goal.
           </p>
 
-          <div className="mt-16 flex flex-col sm:flex-row justify-center gap-8">
+          <div className="mt-10 md:mt-16 flex flex-col sm:flex-row justify-center gap-8">
             <Link
               to="/contact"
-              className="group inline-flex items-center justify-center gap-6 bg-gradient-to-r from-[#FADC58] via-[#C79F2B] to-[#124090] text-white px-16 py-8 rounded-full text-3xl font-black shadow-2xl hover:shadow-[#FADC58]/60 hover:scale-110 transition-all duration-500"
+              className="group inline-flex items-center justify-center gap-4 md:gap-6 bg-gradient-to-r from-[#FADC58] via-[#C79F2B] to-[#124090] text-white px-8 py-5 md:px-16 md:py-8 rounded-full text-xl md:text-3xl font-black shadow-2xl hover:shadow-[#FADC58]/60 hover:scale-110 transition-all duration-500"
             >
               Get Started Now
-              <ArrowRight className="w-10 h-10 group-hover:translate-x-4 transition-transform" />
+              <ArrowRight className="w-6 h-6 md:w-10 md:h-10 group-hover:translate-x-4 transition-transform" />
             </Link>
           </div>
         </div>
       </section>
 
-         <FullSizeVideo/>
+      <FullSizeVideo />
 
       {/* Why Partner */}
-<section className="py-24 md:py-32 bg-gradient-to-b from-[#124090] via-[#0f3a7a] to-[#0b305f]">
-  <div className="max-w-7xl mx-auto px-6">
-    <h2 className="text-5xl md:text-7xl font-black text-center text-[#FADC58] mb-20 drop-shadow-2xl">
-      Why Partner With Case Craft?
-    </h2>
+      <section className="py-12 md:py-24 lg:py-32 bg-gradient-to-b from-[#124090] via-[#0f3a7a] to-[#0b305f]">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-5xl md:text-7xl font-black text-center text-[#FADC58] mb-10 md:mb-20 drop-shadow-2xl">
+            Why Partner With Case Craft?
+          </h2>
 
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
-      {[
-        { icon: TrendingUp, text: "Proven business model with real-world performance" },
-        { icon: Users, text: "High-demand product with strong margins" },
-        { icon: Zap, text: "Fully automated vending solution" },
-        { icon: Shield, text: "Minimal staffing required" },
-        { icon: Clock, text: "Fast setup & easy operation" },
-        { icon: MapPin, text: "Perfect for malls, airports, events & high-traffic locations" }
-      ].map((item, i) => (
-        <div
-          key={i}
-          className="group flex items-start gap-6 p-10 bg-white/5 backdrop-blur-sm rounded-3xl shadow-xl hover:shadow-2xl hover:shadow-[#FADC58]/20 hover:scale-105 transition-all duration-500 border border-[#FADC58]/30 hover:border-[#FADC58]/60"
-        >
-          <div className="w-16 h-16 bg-gradient-to-br from-[#FADC58] to-[#C79F2B] rounded-2xl flex items-center justify-center shadow-2xl flex-shrink-0 ring-4 ring-[#FADC58]/40">
-            <item.icon className="w-9 h-9 text-[#124090]" />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+            {[
+              { icon: TrendingUp, text: "Proven business model with real-world performance" },
+              { icon: Users, text: "High-demand product with strong margins" },
+              { icon: Zap, text: "Fully automated vending solution" },
+              { icon: Shield, text: "Minimal staffing required" },
+              { icon: Clock, text: "Fast setup & easy operation" },
+              { icon: MapPin, text: "Perfect for malls, airports, events & high-traffic locations" }
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="group flex items-start gap-6 p-10 bg-white/5 backdrop-blur-sm rounded-3xl shadow-xl hover:shadow-2xl hover:shadow-[#FADC58]/20 hover:scale-105 transition-all duration-500 border border-[#FADC58]/30 hover:border-[#FADC58]/60"
+              >
+                <div className="w-16 h-16 bg-gradient-to-br from-[#FADC58] to-[#C79F2B] rounded-2xl flex items-center justify-center shadow-2xl flex-shrink-0 ring-4 ring-[#FADC58]/40">
+                  <item.icon className="w-9 h-9 text-[#124090]" />
+                </div>
+                <p className="text-xl font-medium text-gray-100 leading-relaxed group-hover:text-white transition-colors duration-300">
+                  {item.text}
+                </p>
+              </div>
+            ))}
           </div>
-          <p className="text-xl font-medium text-gray-100 leading-relaxed group-hover:text-white transition-colors duration-300">
-            {item.text}
-          </p>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* Kickstarter Package */}
-      <section className="py-32 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-16 md:py-32 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-6xl md:text-8xl font-black text-[#124090] mb-12">
+          <h2 className="text-3xl md:text-8xl font-black text-[#124090] mb-8 md:mb-12">
             Kickstarter Package
           </h2>
 
-          <div className="relative mx-auto max-w-6xl mb-20">
+          <div className="relative mx-auto max-w-6xl mb-10 md:mb-20">
             <div className="absolute inset-0 bg-gradient-to-br from-[#FADC58]/40 via-[#C79F2B]/30 to-[#124090]/20 rounded-3xl blur-3xl"></div>
             <img
               src={machineHero}
               alt="Case Craft Vending Machine"
-              className="relative rounded-3xl shadow-2xl w-full object-cover"
+              className="relative rounded-2xl md:rounded-3xl shadow-2xl w-full object-cover"
             />
           </div>
 
-          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-12">
+          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-12">
             {packageFeatures.map((feature, i) => (
-              <div key={i} className="group bg-white/90 backdrop-blur rounded-3xl p-10 shadow-2xl hover:shadow-3xl hover:scale-110 transition-all duration-500 border border-gray-100">
-                <div className="w-24 h-24 mx-auto mb-8 bg-gradient-to-br from-[#FADC58] to-[#C79F2B] rounded-3xl flex items-center justify-center shadow-xl">
-                  <feature.icon className="w-14 h-14 text-[#124090]" />
+              <div key={i} className="group bg-white/90 backdrop-blur rounded-2xl md:rounded-3xl p-6 md:p-10 shadow-2xl hover:shadow-3xl hover:scale-110 transition-all duration-500 border border-gray-100">
+                <div className="w-16 h-16 md:w-24 md:h-24 mx-auto mb-6 md:mb-8 bg-gradient-to-br from-[#FADC58] to-[#C79F2B] rounded-2xl md:rounded-3xl flex items-center justify-center shadow-xl">
+                  <feature.icon className="w-8 h-8 md:w-14 md:h-14 text-[#124090]" />
                 </div>
-                <h4 className="text-2xl font-black text-[#124090] mb-4">{feature.title}</h4>
-                <p className="text-gray-700 leading-relaxed">{feature.desc}</p>
+                <h4 className="text-xl md:text-2xl font-black text-[#124090] mb-3 md:mb-4">{feature.title}</h4>
+                <p className="text-sm md:text-gray-700 leading-relaxed">{feature.desc}</p>
               </div>
             ))}
           </div>
 
           <Link
             to="/contact"
-            className="mt-20 inline-flex items-center gap-6 bg-gradient-to-r from-[#FADC58] via-[#C79F2B] to-[#124090] text-white px-16 py-8 rounded-full text-3xl font-black shadow-2xl hover:shadow-[#FADC58]/60 hover:scale-110 transition-all duration-500 group"
+            className="mt-12 md:mt-20 inline-flex items-center gap-4 md:gap-6 bg-gradient-to-r from-[#FADC58] via-[#C79F2B] to-[#124090] text-white px-10 py-5 md:px-16 md:py-8 rounded-full text-xl md:text-3xl font-black shadow-2xl hover:shadow-[#FADC58]/60 hover:scale-110 transition-all duration-500 group text-center"
           >
             Contact Us To Find Out More
-            <ArrowRight className="w-10 h-10 group-hover:translate-x-4 transition-transform" />
+            <ArrowRight className="w-6 h-6 md:w-10 md:h-10 group-hover:translate-x-4 transition-transform" />
           </Link>
         </div>
       </section>
 
       {/* FAQ with Tabs */}
-      <section className="py-32 bg-white">
+      <section className="py-16 md:py-32 bg-white">
         <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-6xl md:text-7xl font-black text-center text-[#124090] mb-12">
+          <h2 className="text-6xl md:text-7xl font-black text-center text-[#124090] mb-8 md:mb-12">
             Frequently Asked Questions
           </h2>
 
@@ -204,22 +203,20 @@ const CaseCraftBusinessPage = () => {
             <div className="inline-flex bg-gray-100 rounded-full p-2 shadow-xl">
               <button
                 onClick={() => setActiveTab("investor")}
-                className={`px-10 py-4 rounded-full text-lg font-bold transition-all duration-300 flex items-center gap-3 ${
-                  activeTab === "investor"
-                    ? "bg-gradient-to-r from-[#FADC58] to-[#C79F2B] text-[#124090] shadow-lg"
-                    : "text-gray-600 hover:text-gray-900"
-                }`}
+                className={`px-10 py-4 rounded-full text-lg font-bold transition-all duration-300 flex items-center gap-3 ${activeTab === "investor"
+                  ? "bg-gradient-to-r from-[#FADC58] to-[#C79F2B] text-[#124090] shadow-lg"
+                  : "text-gray-600 hover:text-gray-900"
+                  }`}
               >
                 <Store className="w-6 h-6" />
                 Investor FAQ
               </button>
               <button
                 onClick={() => setActiveTab("customer")}
-                className={`px-10 py-4 rounded-full text-lg font-bold transition-all duration-300 flex items-center gap-3 ${
-                  activeTab === "customer"
-                    ? "bg-gradient-to-r from-[#FADC58] to-[#C79F2B] text-[#124090] shadow-lg"
-                    : "text-gray-600 hover:text-gray-900"
-                }`}
+                className={`px-10 py-4 rounded-full text-lg font-bold transition-all duration-300 flex items-center gap-3 ${activeTab === "customer"
+                  ? "bg-gradient-to-r from-[#FADC58] to-[#C79F2B] text-[#124090] shadow-lg"
+                  : "text-gray-600 hover:text-gray-900"
+                  }`}
               >
                 <Smartphone className="w-6 h-6" />
                 Customer FAQ
@@ -228,33 +225,33 @@ const CaseCraftBusinessPage = () => {
           </div>
 
           {/* FAQ Accordion */}
-          <div className="space-y-8">
+          <div className="space-y-4 md:space-y-8">
             {currentFaqs.map((faq, i) => (
               <div
                 key={i}
-                className="group bg-gradient-to-r from-[#FADC58]/5 to-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-[#FADC58]/30 overflow-hidden"
+                className="group bg-gradient-to-r from-[#FADC58]/5 to-white rounded-2xl md:rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-[#FADC58]/30 overflow-hidden"
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full px-12 py-10 flex items-center justify-between text-left hover:bg-[#FADC58]/5 transition-colors"
+                  className="w-full px-6 py-6 md:px-12 md:py-10 flex items-center justify-between text-left hover:bg-[#FADC58]/5 transition-colors"
                 >
-                  <span className="text-2xl md:text-3xl font-bold text-[#124090] pr-10">
+                  <span className="text-lg md:text-3xl font-bold text-[#124090] pr-6 md:pr-10">
                     {String(i + 1).padStart(2, "0")} {faq.q}
                   </span>
-                  <ChevronDown className={`w-10 h-10 text-[#124090] transition-transform duration-500 ${openFaq === i ? "rotate-180" : ""}`} />
+                  <ChevronDown className={`w-6 h-6 md:w-10 md:h-10 text-[#124090] transition-transform duration-500 ${openFaq === i ? "rotate-180" : ""}`} />
                 </button>
 
                 {openFaq === i && (
-                  <div className="px-12 pb-12">
-                    <p className="text-xl text-gray-700 leading-relaxed whitespace-pre-line">{faq.a}</p>
+                  <div className="px-6 pb-6 md:px-12 md:pb-12">
+                    <p className="text-base md:text-xl text-gray-700 leading-relaxed whitespace-pre-line">{faq.a}</p>
                   </div>
                 )}
               </div>
             ))}
           </div>
 
-          <div className="mt-24 text-center space-y-8">
-            <p className="text-2xl text-gray-700">Still have questions?</p>
+          <div className="mt-16 md:mt-24 text-center space-y-6 md:space-y-8">
+            <p className="text-xl md:text-2xl text-gray-700">Still have questions?</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-10">
               <a href="mailto:hello@caseCraft.com" className="group flex items-center gap-5 text-2xl font-bold text-[#124090] hover:text-[#C79F2B] transition">
                 <Mail className="w-10 h-10 group-hover:scale-110 transition-transform" />

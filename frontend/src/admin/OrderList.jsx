@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminSidebar from "../components/AdminSidebar.jsx";
 import { confirmAdminOrder, deleteAdminOrder, getAdminOrders } from "../api/adminApi.js";
-import { ShoppingBag, Search, ChevronLeft, ChevronRight } from "lucide-react";
+import { ShoppingBag, Search, ChevronLeft, ChevronRight, Download } from "lucide-react";
 
 const ADMIN_STORAGE_KEY = "cpc_admin_token";
 
@@ -65,6 +65,30 @@ const OrderList = () => {
       fetchOrders();
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const handleDownload = async (imageUrl, fileName) => {
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName || 'image.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Download failed:", error);
+      const link = document.createElement('a');
+      link.href = imageUrl;
+      link.download = fileName || 'image.png';
+      link.target = "_blank";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   };
 
@@ -348,12 +372,10 @@ const OrderList = () => {
         </main>
       </div>
 
-      {/* Order Detail Modal - COMPLETELY REDESIGNED */}
       {selectedOrder && (
         <div className="fixed inset-0 z-50 overflow-y-auto bg-black/70 backdrop-blur-sm">
           <div className="flex min-h-screen items-center justify-center p-4">
             <div className="relative w-full max-w-7xl rounded-3xl bg-white shadow-2xl">
-              {/* Sticky Header */}
               <div className="sticky top-0 z-20 flex items-center justify-between border-b border-slate-200 bg-white/95 px-8 py-6 backdrop-blur-sm rounded-t-3xl">
                 <div>
                   <h2 className="text-2xl font-bold text-slate-900">Order Details</h2>
@@ -375,7 +397,6 @@ const OrderList = () => {
 
               <div className="max-h-[calc(100vh-12rem)] overflow-y-auto p-8">
                 <div className="grid gap-8 lg:grid-cols-3">
-                  {/* Order Items - Takes 2 columns */}
                   <div className="space-y-6 lg:col-span-2">
                     <div className="flex items-center gap-3">
                       <div className="rounded-xl bg-indigo-100 p-2">
@@ -393,7 +414,6 @@ const OrderList = () => {
                       <div className="space-y-6">
                         {selectedOrder.items.map((item, idx) => (
                           <div key={`${item.productId}-${idx}`} className="overflow-hidden rounded-2xl border-2 border-slate-200 bg-gradient-to-br from-white to-slate-50 shadow-sm">
-                            {/* Item Header */}
                             <div className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4">
                               <div>
                                 <h4 className="text-lg font-bold text-slate-900">{item.productName}</h4>
@@ -408,13 +428,21 @@ const OrderList = () => {
                             </div>
 
                             <div className="p-6">
-                              {/* Design Preview - Large Image */}
                               <div className="mb-6">
-                                <div className="mb-3 flex items-center gap-2">
-                                  <svg className="h-5 w-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                  </svg>
-                                  <p className="text-sm font-bold uppercase tracking-wide text-slate-700">Final Design</p>
+                                <div className="mb-3 flex items-center justify-between">
+                                  <div className="flex items-center gap-2">
+                                    <svg className="h-5 w-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    <p className="text-sm font-bold uppercase tracking-wide text-slate-700">Final Design</p>
+                                  </div>
+                                  <button
+                                    onClick={() => handleDownload(item.designImage, `design-${selectedOrder._id}-${idx + 1}.png`)}
+                                    className="flex items-center gap-2 rounded-lg bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-200 transition-colors"
+                                  >
+                                    <Download className="h-4 w-4" />
+                                    Download
+                                  </button>
                                 </div>
                                 <div className="overflow-hidden rounded-2xl border-2 border-slate-300 bg-white shadow-lg">
                                   <img
@@ -425,14 +453,22 @@ const OrderList = () => {
                                 </div>
                               </div>
 
-                              {/* User Custom Image - Large */}
                               {item.userCustomImage && (
                                 <div className="mb-6">
-                                  <div className="mb-3 flex items-center gap-2">
-                                    <svg className="h-5 w-5 text-[#FFC107]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                    </svg>
-                                    <p className="text-sm font-bold uppercase tracking-wide text-slate-700">Customer Upload</p>
+                                  <div className="mb-3 flex items-center justify-between">
+                                    <div className="flex items-center gap-2">
+                                      <svg className="h-5 w-5 text-[#FFC107]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                      </svg>
+                                      <p className="text-sm font-bold uppercase tracking-wide text-slate-700">Customer Upload</p>
+                                    </div>
+                                    <button
+                                      onClick={() => handleDownload(item.userCustomImage, `upload-${selectedOrder._id}-${idx + 1}.png`)}
+                                      className="flex items-center gap-2 rounded-lg bg-[#FFC107]/10 px-3 py-1.5 text-xs font-bold text-[#FFC107] hover:bg-[#FFC107]/20 transition-colors"
+                                    >
+                                      <Download className="h-4 w-4" />
+                                      Download
+                                    </button>
                                   </div>
                                   <div className="overflow-hidden rounded-2xl border-2 border-[#FFC107] bg-white shadow-lg">
                                     <img
@@ -444,7 +480,6 @@ const OrderList = () => {
                                 </div>
                               )}
 
-                              {/* Template Image - Large */}
                               {item.templateImage && (
                                 <div className="mb-6">
                                   <div className="mb-3 flex items-center gap-2">
@@ -463,7 +498,6 @@ const OrderList = () => {
                                 </div>
                               )}
 
-                              {/* Custom Text */}
                               {item.customText && (
                                 <div className="mb-6">
                                   <div className="mb-3 flex items-center gap-2">
@@ -478,7 +512,6 @@ const OrderList = () => {
                                 </div>
                               )}
 
-                              {/* Price Tag */}
                               <div className="flex items-center justify-between rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 p-4 ring-2 ring-emerald-200">
                                 <p className="text-sm font-semibold text-slate-700">Item Price</p>
                                 <p className="text-2xl font-bold text-emerald-900">$ {item.price || 0}</p>
@@ -497,7 +530,6 @@ const OrderList = () => {
                     )}
                   </div>
 
-                  {/* Order Information Sidebar */}
                   <div className="space-y-4 lg:col-span-1">
                     <div className="flex items-center gap-3">
                       <div className="rounded-xl bg-emerald-100 p-2">
@@ -511,7 +543,6 @@ const OrderList = () => {
                       </div>
                     </div>
 
-                    {/* Customer Card */}
                     <div className="overflow-hidden rounded-2xl border-2 border-slate-200 bg-gradient-to-br from-[#02225b]/5 to-[#02225b]/5 shadow-sm">
                       <div className="border-b border-slate-200 bg-white/80 backdrop-blur px-5 py-3">
                         <div className="flex items-center gap-2">
@@ -534,7 +565,6 @@ const OrderList = () => {
                       </div>
                     </div>
 
-                    {/* Stats Grid */}
                     <div className="grid grid-cols-2 gap-4">
                       <div className="rounded-2xl border-2 border-slate-200 bg-white p-4 shadow-sm">
                         <div className="mb-2 rounded-lg bg-slate-100 p-2 w-fit">
@@ -557,7 +587,6 @@ const OrderList = () => {
                       </div>
                     </div>
 
-                    {/* Status Card */}
                     <div className="rounded-2xl border-2 border-slate-200 bg-white p-5 shadow-sm">
                       <div className="mb-3 flex items-center gap-2">
                         <svg className="h-5 w-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -577,7 +606,6 @@ const OrderList = () => {
                       </span>
                     </div>
 
-                    {/* Contact Card */}
                     <div className="rounded-2xl border-2 border-slate-200 bg-white p-5 shadow-sm">
                       <div className="mb-3 flex items-center gap-2">
                         <svg className="h-5 w-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -588,7 +616,6 @@ const OrderList = () => {
                       <p className="text-base font-bold text-slate-900">{selectedOrder.phone}</p>
                     </div>
 
-                    {/* Address Card */}
                     <div className="rounded-2xl border-2 border-slate-200 bg-white p-5 shadow-sm">
                       <div className="mb-3 flex items-center gap-2">
                         <svg className="h-5 w-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -600,7 +627,6 @@ const OrderList = () => {
                       <p className="text-sm leading-relaxed text-slate-700">{selectedOrder.address}</p>
                     </div>
 
-                    {/* Date Card */}
                     <div className="rounded-2xl border-2 border-slate-200 bg-white p-5 shadow-sm">
                       <div className="mb-3 flex items-center gap-2">
                         <svg className="h-5 w-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -624,7 +650,6 @@ const OrderList = () => {
                       </p>
                     </div>
 
-                    {/* Action Buttons */}
                     <div className="space-y-3 pt-4">
                       {selectedOrder.status !== "confirmed" && (
                         <button

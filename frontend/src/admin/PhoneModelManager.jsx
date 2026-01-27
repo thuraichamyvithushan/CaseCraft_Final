@@ -14,16 +14,16 @@ const ADMIN_STORAGE_KEY = "cpc_admin_token";
 
 const PhoneModelManager = () => {
     const [models, setModels] = useState([]);
-    const [form, setForm] = useState({ name: "", price: 0, templateFile: null });
+    const [form, setForm] = useState({ name: "", price: 0, category: "Apple", templateFile: null });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [selectedModel, setSelectedModel] = useState(null);
     const [addingTemplate, setAddingTemplate] = useState(false);
     const [fetched, setFetched] = useState(false);
 
-    // Pagination & Search State
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
+    const [selectedCategory, setSelectedCategory] = useState("All");
     const itemsPerPage = 8;
 
     const loadModels = async () => {
@@ -73,7 +73,6 @@ const PhoneModelManager = () => {
                 reader.readAsDataURL(form.templateFile);
             });
 
-            // Auto-generate key from name: lowercase, special chars to hyphen
             const autoKey = form.name
                 .toLowerCase()
                 .replace(/[^a-z0-9]+/g, '-')
@@ -84,12 +83,13 @@ const PhoneModelManager = () => {
                     name: form.name,
                     key: autoKey,
                     price: Number(form.price) || 0,
+                    category: form.category,
                     templateImages: [templateData],
                 },
                 token
             );
 
-            setForm({ name: "", price: 0, templateFile: null });
+            setForm({ name: "", price: 0, category: "Apple", templateFile: null });
             await loadModels();
         } catch (err) {
             setError(err.response?.data?.message || "Unable to create phone model");
@@ -162,39 +162,27 @@ const PhoneModelManager = () => {
     };
 
 
-    // Handle updating name & price
     const handleUpdateDetails = async (modelId, key, value) => {
         const token = localStorage.getItem(ADMIN_STORAGE_KEY);
         if (!token) return setError("Admin not authenticated.");
-
-        // We already have existing handlers, but they are specific.
-        // Let's use the mockup endpoint which we upgraded to handle name/price too.
-        // Or we can create an explicit handler.
-        // Since we upgraded adminUpdateModelMockup to take name/price, we can use that.
-        // But passing all args is cumbersome.
-        // Let's create a local helper.
-
-        // Actually, `adminUpdateModelMockup` expects all args. 
-        // Ideally we should have a cleaner API, but for now we re-send existing values.
 
         setAddingTemplate(true);
         try {
             await adminUpdateModelMockup(
                 modelId,
-                undefined, // no new image
+                undefined,
                 selectedModel.coverArea,
                 selectedModel.coverSize || { width: 300, height: 500 },
                 token,
                 key === 'name' ? value : selectedModel.name,
                 key === 'price' ? Number(value) : selectedModel.price,
-                selectedModel.cameraOverlay
+                selectedModel.cameraOverlay,
+                key === 'category' ? value : selectedModel.category
             );
 
-            // Optimistic update or reload
             const updated = { ...selectedModel, [key]: key === 'price' ? Number(value) : value };
             setSelectedModel(updated);
 
-            // Also reload list to update table
             await loadModels();
             setError("");
         } catch (err) {
@@ -279,8 +267,9 @@ const PhoneModelManager = () => {
 
     // Filtering and Pagination Logic
     const filteredModels = models.filter(model =>
-        model.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        model.key.toLowerCase().includes(searchQuery.toLowerCase())
+        (selectedCategory === "All" || model.category === selectedCategory) &&
+        (model.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            model.key.toLowerCase().includes(searchQuery.toLowerCase()))
     );
 
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -323,7 +312,6 @@ const PhoneModelManager = () => {
                         </div>
                     </div>
 
-                    {/* Stats Cards */}
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                         <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200/50">
                             <div className="flex items-center justify-between">
@@ -420,6 +408,21 @@ const PhoneModelManager = () => {
                             </div>
 
                             <div className="space-y-2">
+                                <label className="text-sm font-semibold text-slate-700">Category</label>
+                                <select
+                                    name="category"
+                                    value={form.category}
+                                    onChange={handleChange}
+                                    className="w-full rounded-xl border-2 border-slate-200 px-4 py-3 text-sm transition-colors focus:border-[#02225b] focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                                    required
+                                >
+                                    <option value="Apple">Apple</option>
+                                    <option value="Samsung">Samsung</option>
+                                    <option value="Google">Google</option>
+                                </select>
+                            </div>
+
+                            <div className="space-y-2">
                                 <label className="text-sm font-semibold text-slate-700">Template Image</label>
                                 <input
                                     type="file"
@@ -467,9 +470,28 @@ const PhoneModelManager = () => {
                         </button>
                     </form>
 
-                    {/* Models Table/Grid */}
+                    {/* Category Filter Tabs */}
+                    <div className="flex items-center gap-3 overflow-x-auto p-2 scrollbar-hide">
+                        {["All", "Apple", "Samsung", "Google"].map((cat) => (
+                            <button
+                                key={cat}
+                                onClick={() => {
+                                    setSelectedCategory(cat);
+                                    setCurrentPage(1);
+                                }}
+                                className={`
+                                    flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition-all
+                                    ${selectedCategory === cat
+                                        ? "bg-[#02225b] text-white shadow-lg shadow-indigo-200 ring-2 ring-[#02225b] ring-offset-2"
+                                        : "bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900 border border-slate-200 shadow-sm"}
+                                `}
+                            >
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
+
                     <div className="rounded-2xl bg-white shadow-sm ring-1 ring-slate-200/50">
-                        {/* Desktop Table View */}
                         <div className="hidden overflow-x-auto lg:block">
                             <table className="min-w-full divide-y divide-slate-200">
                                 <thead className="bg-slate-50">
@@ -479,6 +501,7 @@ const PhoneModelManager = () => {
                                         <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-600">Key</th>
                                         <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-600">Templates</th>
                                         <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-600">Price</th>
+                                        <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-600">Category</th>
                                         <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-600">Created</th>
                                         <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-slate-600">Actions</th>
                                     </tr>
@@ -486,7 +509,7 @@ const PhoneModelManager = () => {
                                 <tbody className="divide-y divide-slate-100 bg-white">
                                     {!fetched ? (
                                         <tr>
-                                            <td colSpan="7" className="px-6 py-12 text-center">
+                                            <td colSpan="8" className="px-6 py-12 text-center">
                                                 <div className="flex items-center justify-center gap-2">
                                                     <svg className="h-5 w-5 animate-spin text-[#02225b]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -498,7 +521,7 @@ const PhoneModelManager = () => {
                                         </tr>
                                     ) : filteredModels.length === 0 ? (
                                         <tr>
-                                            <td colSpan="7" className="px-6 py-12 text-center">
+                                            <td colSpan="8" className="px-6 py-12 text-center">
                                                 <div className="flex flex-col items-center gap-3">
                                                     <div className="rounded-full bg-slate-100 p-4">
                                                         <svg className="h-12 w-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -548,6 +571,11 @@ const PhoneModelManager = () => {
                                                     </td>
                                                     <td className="px-6 py-4">
                                                         <p className="text-sm font-bold text-slate-900">$ {m.price || 0}</p>
+                                                    </td>
+                                                    <td className="px-6 py-4">
+                                                        <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider ${m.category === 'Apple' ? 'bg-slate-100 text-slate-700' : m.category === 'Samsung' ? 'bg-blue-50 text-blue-700' : 'bg-orange-50 text-orange-700'}`}>
+                                                            {m.category || "Apple"}
+                                                        </span>
                                                     </td>
                                                     <td className="px-6 py-4">
                                                         <p className="text-sm text-slate-600">
@@ -675,6 +703,9 @@ const PhoneModelManager = () => {
                                                             </svg>
                                                             {templates.length}
                                                         </span>
+                                                        <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${m.category === 'Apple' ? 'bg-slate-100 text-slate-700' : m.category === 'Samsung' ? 'bg-blue-50 text-blue-700' : 'bg-orange-50 text-orange-700'}`}>
+                                                            {m.category || "Apple"}
+                                                        </span>
                                                         <span className="text-sm font-bold text-slate-900">$ {m.price || 0}</span>
                                                     </div>
                                                     <p className="text-xs text-slate-500">
@@ -793,6 +824,18 @@ const PhoneModelManager = () => {
                                                     onChange={(e) => handleUpdateDetails(selectedModel._id, 'price', e.target.value)}
                                                     className="w-full rounded-xl border-2 border-slate-300 px-4 py-3 text-sm transition-colors focus:border-[#02225b] focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
                                                 />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-sm font-semibold text-slate-700">Category</label>
+                                                <select
+                                                    value={selectedModel.category || "Apple"}
+                                                    onChange={(e) => handleUpdateDetails(selectedModel._id, 'category', e.target.value)}
+                                                    className="w-full rounded-xl border-2 border-slate-300 px-4 py-3 text-sm transition-colors focus:border-[#02225b] focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                                                >
+                                                    <option value="Apple">Apple</option>
+                                                    <option value="Samsung">Samsung</option>
+                                                    <option value="Google">Google</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
