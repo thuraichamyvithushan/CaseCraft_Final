@@ -117,15 +117,16 @@ const Home = () => {
       
       {/* Hero Carousel */}
       <HeroSlider/>
-
-      <CaseLaboratorySection/>
+      <PhoneCaseCollection/>
+       <AboutSection/>
+      {/* <CaseLaboratorySection/> */}
       <FullSizeVideo/>
       
       {/* Services Grid */}
       <ChooseExperience/>
 
       {/* Phone Products Showcase */}
-      <PhoneCaseCollection/>
+   
       
 
       {/* Pet Products Showcase */}
@@ -133,7 +134,7 @@ const Home = () => {
       
 
       {/* About Us Section */}
-      <AboutSection/>
+     
      
       <HomeFAQ/>
 <HomeTestimonials/>

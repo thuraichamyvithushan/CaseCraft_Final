@@ -25,6 +25,7 @@ const ALLOWED_ORIGINS = process.env.CLIENT_URL
   ? process.env.CLIENT_URL.split(",").map(url => url.trim())
   : [
     "https://case-craft-final.vercel.app",
+    "https://case-craft-final-yc3q.vercel.app",
     "http://localhost:3000",
     "http://localhost:3001",
     "http://localhost:5173",

@@ -117,7 +117,7 @@ export default function HeroSlider() {
                 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl text-white font-black tracking-tighter leading-tight md:leading-none uppercase"
               >
                 {slide.title}<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FADC58] via-[#C79F2B] to-[#124090]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FADC58] to-[#C79F2B]">
                   {slide.titleGradient}
                 </span>
               </motion.h1>
@@ -192,14 +192,14 @@ export default function HeroSlider() {
 
         {/* Navigation Arrows - Subtle Blue/Gold Touch */}
         <div className="hidden md:flex gap-4 pointer-events-auto">
-          <button 
-            onClick={prev} 
+          <button
+            onClick={prev}
             className="p-4 bg-white/10 backdrop-blur rounded-full hover:bg-[#124090]/30 hover:border-[#3065C5] transition-all border border-white/20"
           >
             <ChevronLeft className="w-6 h-6 text-white" />
           </button>
-          <button 
-            onClick={next} 
+          <button
+            onClick={next}
             className="p-4 bg-white/10 backdrop-blur rounded-full hover:bg-[#124090]/30 hover:border-[#3065C5] transition-all border border-white/20"
           >
             <ChevronRight className="w-6 h-6 text-white" />

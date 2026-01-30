@@ -34,12 +34,40 @@ const phoneProducts = [
     price: "$44.99",
     image: case4,
     features: ["Premium vegan leather", "Stand function", "RFID blocking"]
+  },
+  {
+    id: 5,
+    name: "Tough Armor Case",
+    price: "$39.99",
+    image: case1,
+    features: ["Extreme durability", "Shock absorbance", "Tactile buttons"]
+  },
+  {
+    id: 6,
+    name: "Glitter Sparkle Case",
+    price: "$36.99",
+    image: case2,
+    features: ["Embedded glitter", "Smooth finish", "Wireless charging"]
+  },
+  {
+    id: 7,
+    name: "Wood Grain Case",
+    price: "$38.99",
+    image: case3,
+    features: ["Real wood veneer", "Unique grain pattern", "Rubberized grip"]
+  },
+  {
+    id: 8,
+    name: "Silicone Soft Touch",
+    price: "$28.99",
+    image: case4,
+    features: ["Soft touch finish", "Microfiber lining", "Variety of colors"]
   }
 ];
 
 export default function PhoneCaseCollection() {
   return (
-    <section className="py-10 md:py-20 bg-gradient-to-br from-[#124090]/5 via-white to-[#FADC58]/5 overflow-hidden">
+    <section className="py-10 md:py-20 bg-gradient-to-br from-white via-white to-[#FADC58]/5 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
 
         <div className="text-center mb-16 md:mb-20">

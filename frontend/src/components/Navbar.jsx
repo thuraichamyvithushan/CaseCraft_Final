@@ -118,7 +118,7 @@ const Navbar = () => {
                         Pet Gifts
                     </NavLink> */}
                     <NavLink
-                        to="/CaseCraftBusinessPage"
+                        to="/store-locator"
                         onClick={() => setInfoOpen(false)}
                         className={({ isActive }) =>
                             `relative px-5 py-3 text-md font-semibold transition-all duration-300
@@ -126,7 +126,7 @@ const Navbar = () => {
                   after:absolute after:bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-[#D1B544] after:transition-all hover:after:w-8`
                         }
                     >
-                        Become a Owner
+                        Store Locator
                     </NavLink>
 
                     {/* INFO DROPDOWN */}
@@ -136,11 +136,10 @@ const Navbar = () => {
                     >
                         <button
                             onClick={() => setInfoOpen(!infoOpen)}
-                            className={`px-3 xl:px-4 py-2 text-md font-semibold rounded-lg transition-all flex items-center gap-1 ${
-                                infoOpen || isInfoPageActive
-                                    ? "text-[#D1B544] bg-yellow-50"
-                                    : "text-gray-800 hover:text-[#D1B544] hover:bg-yellow-50"
-                            }`}
+                            className={`px-3 xl:px-4 py-2 text-md font-semibold rounded-lg transition-all flex items-center gap-1 ${infoOpen || isInfoPageActive
+                                ? "text-[#D1B544] bg-yellow-50"
+                                : "text-gray-800 hover:text-[#D1B544] hover:bg-yellow-50"
+                                }`}
                         >
                             Info
                             <ChevronDown
@@ -298,7 +297,7 @@ const Navbar = () => {
                     <NavLink to="/" onClick={() => setOpen(false)} className="block px-4 py-3 text-md font-semibold text-gray-800 hover:text-[#D1B544]">Home</NavLink>
                     <NavLink to="/custom-mobilecase" onClick={() => setOpen(false)} className="block px-4 py-3 text-md font-semibold text-gray-800 hover:text-[#D1B544]">Phone Cases</NavLink>
                     {/* <NavLink to="/pet-center" onClick={() => setOpen(false)} className="block px-4 py-3 text-md font-semibold text-gray-800 hover:text-[#D1B544]">Pet Gifts</NavLink> */}
-                    <NavLink to="/CaseCraftBusinessPage" onClick={() => setOpen(false)} className="block px-4 py-3 text-md font-semibold text-gray-800 hover:text-[#D1B544]">Become a Owner</NavLink>
+                    <NavLink to="/store-locator" onClick={() => setOpen(false)} className="block px-4 py-3 text-md font-semibold text-gray-800 hover:text-[#D1B544]">Store Locator</NavLink>
 
                     {/* INFO DROPDOWN MOBILE */}
                     <div className="space-y-1">

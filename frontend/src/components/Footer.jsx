@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../assets/logo/logo2.png";
+import logo from "../assets/logo/logo-y.png";
 import {
   Heart,
   Sparkles,
