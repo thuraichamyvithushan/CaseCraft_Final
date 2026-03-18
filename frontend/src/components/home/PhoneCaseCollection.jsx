@@ -56,7 +56,7 @@ const phoneProducts = [
   },
   {
     id: 7,
-    name: "Wood Grain Case",
+    name: "Wood Grain Phone Case",
     price: "$38.99",
     image: case7,
     features: ["Real wood veneer", "Unique grain pattern", "Rubberized grip"]
