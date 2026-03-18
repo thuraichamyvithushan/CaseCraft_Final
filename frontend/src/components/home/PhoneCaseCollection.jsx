@@ -2,9 +2,14 @@ import React from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import case1 from "../../assets/cases/case1.webp";
-import case2 from "../../assets/cases/case2.webp";
+import case2 from "../../assets/cases/case21.jpg";
 import case3 from "../../assets/cases/case3.webp";
-import case4 from "../../assets/cases/case4.webp";
+import case4 from "../../assets/cases/case4.jpg";
+import case5 from "../../assets/cases/case5.jpg";
+import case6 from "../../assets/cases/case6.jpg";
+import case7 from "../../assets/cases/case7.jpg";
+import case8 from "../../assets/cases/case8.jpg";
+
 
 const phoneProducts = [
   {
@@ -39,28 +44,28 @@ const phoneProducts = [
     id: 5,
     name: "Tough Armor Case",
     price: "$39.99",
-    image: case1,
+    image: case5,
     features: ["Extreme durability", "Shock absorbance", "Tactile buttons"]
   },
   {
     id: 6,
     name: "Glitter Sparkle Case",
     price: "$36.99",
-    image: case2,
+    image: case6,
     features: ["Embedded glitter", "Smooth finish", "Wireless charging"]
   },
   {
     id: 7,
     name: "Wood Grain Case",
     price: "$38.99",
-    image: case3,
+    image: case7,
     features: ["Real wood veneer", "Unique grain pattern", "Rubberized grip"]
   },
   {
     id: 8,
     name: "Silicone Soft Touch",
     price: "$28.99",
-    image: case4,
+    image: case8,
     features: ["Soft touch finish", "Microfiber lining", "Variety of colors"]
   }
 ];

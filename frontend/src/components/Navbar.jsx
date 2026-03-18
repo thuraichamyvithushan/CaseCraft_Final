@@ -106,6 +106,18 @@ const Navbar = () => {
                         Phone Cases
                     </NavLink>
 
+                    <NavLink
+                        to="/CaseCraftBusinessPage"
+                        onClick={() => setInfoOpen(false)}
+                        className={({ isActive }) =>
+                            `relative px-5 py-3 text-md font-semibold transition-all duration-300
+                  ${isActive ? "text-[#D1B544]" : "text-gray-800 hover:text-[#D1B544]"}
+                  after:absolute after:bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-[#D1B544] after:transition-all hover:after:w-8`
+                        }
+                    >
+                        Become Owner
+                    </NavLink>
+
                     {/* <NavLink
                         to="/pet-center"
                         onClick={() => setInfoOpen(false)}
@@ -296,6 +308,7 @@ const Navbar = () => {
                 <div className="px-4 pt-4 pb-6 space-y-2 bg-gray-50 border-t border-gray-200">
                     <NavLink to="/" onClick={() => setOpen(false)} className="block px-4 py-3 text-md font-semibold text-gray-800 hover:text-[#D1B544]">Home</NavLink>
                     <NavLink to="/custom-mobilecase" onClick={() => setOpen(false)} className="block px-4 py-3 text-md font-semibold text-gray-800 hover:text-[#D1B544]">Phone Cases</NavLink>
+                    <NavLink to="/CaseCraftBusinessPage" onClick={() => setOpen(false)} className="block px-4 py-3 text-md font-semibold text-gray-800 hover:text-[#D1B544]">Become Owner</NavLink>
                     {/* <NavLink to="/pet-center" onClick={() => setOpen(false)} className="block px-4 py-3 text-md font-semibold text-gray-800 hover:text-[#D1B544]">Pet Gifts</NavLink> */}
                     <NavLink to="/store-locator" onClick={() => setOpen(false)} className="block px-4 py-3 text-md font-semibold text-gray-800 hover:text-[#D1B544]">Store Locator</NavLink>
 
