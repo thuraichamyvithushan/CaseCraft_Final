@@ -10,6 +10,7 @@ const adminClient = axios.create({
   baseURL: `${API_URL}/admin/`
 });
 
+
 adminClient.interceptors.response.use(
   (response) => response,
   (error) => {
