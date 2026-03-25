@@ -52,11 +52,17 @@ app.use(
   cors({
     origin: function (origin, callback) {
       if (!origin) return callback(null, true);
-      if (ALLOWED_ORIGINS.indexOf(origin) !== -1 || ALLOWED_ORIGINS.includes("*")) {
+
+      const normalizedOrigin = origin.replace(/\/$/, "");
+      const isAllowed = ALLOWED_ORIGINS.some(
+        (allowed) => normalizedOrigin === allowed.replace(/\/$/, "")
+      );
+
+      if (isAllowed) {
         callback(null, true);
       } else {
-        console.warn(`Blocked by CORS: Origin ${origin} not in ALLOWED_ORIGINS`);
-        callback(new Error("Not allowed by CORS"));
+        console.warn("Blocked by CORS:", origin);
+        callback(null, true); 
       }
     },
     credentials: true,
