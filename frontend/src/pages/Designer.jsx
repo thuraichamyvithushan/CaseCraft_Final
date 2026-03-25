@@ -518,7 +518,7 @@ const Designer = () => {
             addItem({
                 productName: model.name,
                 productId: model._id,
-                price: model.price || 1000,
+                price: model.price || 0,
                 designImage,
                 templateImage: selectedTemplate,
                 userCustomImage: userCustomImage || "",
@@ -602,7 +602,7 @@ const Designer = () => {
                                 <div className="mt-3 rounded-lg bg-[#FFC107]/20 p-4 border border-[#FFC107]/40 sm:mt-4 sm:rounded-xl sm:p-4">
                                     <p className="text-xs text-[#02225b] font-medium sm:text-sm">Price</p>
                                     <p className="text-2xl font-bold text-[#FFC107] sm:text-2xl lg:text-3xl">
-                                        ${selectedModel.price || 1000}
+                                        ${selectedModel.price || 0}
                                     </p>
                                 </div>
                             )}
