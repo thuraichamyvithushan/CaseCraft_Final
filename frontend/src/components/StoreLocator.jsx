@@ -61,16 +61,16 @@ const StoreLocator = () => {
     ],
     nsw: [
        {
-        name: "130 University drive, Callaghan NSW 2308",
-        lat: -32.8890,
-        lng: 151.7027,
-        address: "130 University drive, Callaghan NSW 2308"
+        name: "university of newcastle callaghan campus",
+        lat: -32.8927,
+        lng: 151.6990,
+        address: "Shortland Hub - Shortland Union Building"
       },
       // {
-      //   name: "UTS (BUILDING 5 COURTARD)",
+      //   name: "Shortland Hub - Shortland Union Building",
       //   lat: -33.8832,
       //   lng: 151.2016,
-      //   address: "UTS Building 5, Ultimo NSW 2007"
+      //   address: "Shortland Hub - Shortland Union Building"
       // },
       // {
       //   name: "Westfield Eastgardens (Level 3, lift outside Hoyts)",
@@ -341,7 +341,7 @@ const StoreLocator = () => {
               <div className="mb-3 sm:mb-5 flex items-center justify-between">
                 <h2 className={`text-xl sm:text-2xl font-black text-[#124090] transition-all duration-500 uppercase tracking-tight flex items-center gap-2 ${locationsVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
                   }`} style={{ transitionDelay: "700ms" }}>
-                  <MapPin className="w-6 h-6 text-[#C79F2B]" />
+                  <MapPin className="w-6 h-4 text-[#C79F2B]" />
                   {filteredLocations.length} Locations Found
                 </h2>
               </div>
@@ -435,11 +435,11 @@ const StoreLocator = () => {
                 animation: "fadeInMap 0.8s ease-out 0.1s both"
               }}>
               <div className="lg:sticky lg:top-8">
-                <div className="relative bg-white rounded-xl sm:rounded-2xl shadow-2xl border-4 border-white overflow-hidden h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] xl:h-[800px] group transition-all duration-500 animate-fade-in ring-1 ring-gray-200">
+                <div className="relative bg-white rounded-xl sm:rounded-2xl shadow-2xl border-4 border-white overflow-hidden h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] xl:h-[600px] group transition-all duration-500 animate-fade-in ring-1 ring-gray-200">
                   {/* Map Header */}
                   <div className="relative z-10 p-4 border-b border-gray-100 bg-white/95 backdrop-blur-sm flex justify-between items-center shadow-sm">
                     <h3 className="text-base sm:text-lg font-black text-[#124090] flex items-center gap-2">
-                      <Navigation className="w-5 h-5 text-[#C79F2B]" />
+                      <Navigation className="w-5 h-4 text-[#C79F2B]" />
                       Interactive Map
                     </h3>
                     {selectedLocation && (
