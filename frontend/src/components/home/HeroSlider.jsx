@@ -14,8 +14,10 @@ const slides = [
     accent: "Automatic Phone Case Printing",
     title: "INSTANT",
     titleGradient: "PRINTING IN AUSTRALIA",
-    subtitle: "We offer automatic custom phone case printing in Australia. Explore our designs and services online, then visit our location to get it done instantly.",
-  
+    subtitle: "We offer automatic custom phone case printing in Australia. Explore our designs online and visit our locations to get it done instantly.",
+
+    // cta1: "Start Designing",
+    // to1: "/case-design",
     cta2: "Find Our Location",
     to2: "/store-locator"
   },
@@ -26,8 +28,9 @@ const slides = [
     accent: "Exclusive Collections",
     title: "PREMIUM",
     titleGradient: "AURA DESIGNS",
-    subtitle: "Explore our stunning iridescent Aura collection. Visit our physical locations to have these exclusive designs printed on your phone case in minutes.",
-  
+    subtitle: "Explore our stunning iridescent Aura collection in store. Visit our locations to get these exclusive designs printed on your phone case.",
+    // cta1: "Shop Now",
+    // to1: "/custom-mobilecase",
     cta2: "Store Locator",
     to2: "/store-locator"
   },
@@ -38,8 +41,9 @@ const slides = [
     accent: "Memorial & Tribute Cases",
     title: "HONOR",
     titleGradient: "YOUR MEMORIES",
-    subtitle: "Create a beautiful tribute for your loved ones. Visit our Australia-wide locations for instant, high-quality printing on any case design.",
-  
+    subtitle: "Create a beautiful tribute for your loved ones. Visit our Australia wide locations for instant high quality printing on any case design.",
+    // cta1: "Create Case",
+    // to1: "/case-design",
     cta2: "Visit Us",
     to2: "/store-locator"
   }
@@ -51,7 +55,7 @@ export default function HeroSlider() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent(prev => (prev + 1) % slides.length);
-    }, 6000);
+    }, 8000);
     return () => clearInterval(timer);
   }, []);
 
@@ -83,10 +87,9 @@ export default function HeroSlider() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Content */}
       <div className="relative z-20 flex items-start justify-center py-6">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-16">
-          <AnimatePresence mode="sync">
+          <AnimatePresence mode="wait">
             <motion.div
               key={current}
               initial={{ x: 100, opacity: 0 }}
