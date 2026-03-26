@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Star, ArrowLeft, ArrowRight, Quote } from 'lucide-react';
 
-import tesimg from "../../assets/custom/phonecase3.png"
-import tesimg2 from "../../assets/custom/Phonecase2.png"
-import tesimg3 from "../../assets/custom/phonecase5.png"
-import tesimg4 from "../../assets/custom/phonecase6.png"
+import tesimg from "../../assets/custom/tes4.png"
+import tesimg2 from "../../assets/custom/tes1.png"
+import tesimg3 from "../../assets/custom/tes3.png"
+import tesimg4 from "../../assets/custom/test2.png"
 
 export default function HomeTestimonials() {
   const [currentIndex, setCurrentIndex] = useState(0);

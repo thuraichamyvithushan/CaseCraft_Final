@@ -2,49 +2,46 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ShoppingBag, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import heroDesktop from "../../assets/phonehero.png";
-import heroDesktop2 from "../../assets/phonehero2.png";
-import heroDesktop3 from "../../assets/phonehero3.png";
+import heroDesktop from "../../assets/ban3.png";
+import heroDesktop2 from "../../assets/ban2.png";
+import heroDesktop3 from "../../assets/ban1.png";
 
 const slides = [
   {
     id: 1,
     bgDesktop: heroDesktop,
     bgMobile: heroDesktop,
-    accent: "Phone Case Print Specialists",
-    title: "YOUR PIC",
-    titleGradient: "ON YOUR PHONE",
-    subtitle: "Premium custom phone cases featuring your dog, cat, or any pet. Crystal-clear print • Tough protection • Fast shipping • 100% happiness guaranteed.",
-    cta1: "Design Your Case Now",
-    to1: "/case-design",
-    cta2: "View Gallery",
-    to2: "/custom-mobilecase#gallery"
+    accent: "Automatic Phone Case Printing",
+    title: "INSTANT",
+    titleGradient: "PRINTING IN AUSTRALIA",
+    subtitle: "We offer automatic custom phone case printing in Australia. Explore our designs and services online, then visit our location to get it done instantly.",
+  
+    cta2: "Find Our Location",
+    to2: "/store-locator"
   },
   {
     id: 2,
     bgDesktop: heroDesktop2,
     bgMobile: heroDesktop2,
-    accent: "Limited Drop • Aura Collection",
-    title: "AURA",
-    titleGradient: "COLLECTION",
-    subtitle: "Iridescent shimmer that changes with light. Only 3,000 made — get yours before they vanish.",
-    cta1: "Shop Aura Now",
-    to1: "/custom-mobilecase",
-    cta2: "See Colors",
-    to2: "/custom-mobilecase"
+    accent: "Exclusive Collections",
+    title: "PREMIUM",
+    titleGradient: "AURA DESIGNS",
+    subtitle: "Explore our stunning iridescent Aura collection. Visit our physical locations to have these exclusive designs printed on your phone case in minutes.",
+  
+    cta2: "Store Locator",
+    to2: "/store-locator"
   },
   {
     id: 3,
     bgDesktop: heroDesktop3,
     bgMobile: heroDesktop3,
-    accent: "Forever in your pocket",
-    title: "RAINBOW",
-    titleGradient: "BRIDGE",
-    subtitle: "Honor your angel with a beautiful memorial case. Made with love, printed with care.",
-    cta1: "Create Memorial Case",
-    to1: "/case-design",
-    cta2: "Learn More",
-    to2: "/about"
+    accent: "Memorial & Tribute Cases",
+    title: "HONOR",
+    titleGradient: "YOUR MEMORIES",
+    subtitle: "Create a beautiful tribute for your loved ones. Visit our Australia-wide locations for instant, high-quality printing on any case design.",
+  
+    cta2: "Visit Us",
+    to2: "/store-locator"
   }
 ];
 

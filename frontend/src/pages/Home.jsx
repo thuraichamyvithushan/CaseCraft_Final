@@ -117,13 +117,13 @@ const Home = () => {
       
       {/* Hero Carousel */}
       <HeroSlider/>
-      <PhoneCaseCollection/>
+      {/* <PhoneCaseCollection/> */}
        <AboutSection/>
-      {/* <CaseLaboratorySection/> */}
-      <FullSizeVideo/>
+      <CaseLaboratorySection/>
+      {/* <FullSizeVideo/> */}
       
       {/* Services Grid */}
-      <ChooseExperience/>
+      {/* <ChooseExperience/> */}
 
       {/* Phone Products Showcase */}
    

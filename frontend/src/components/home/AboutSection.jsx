@@ -1,17 +1,15 @@
 import React from 'react';
 import { ArrowRight, Sparkles, HeartHandshake } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import vendingmachine from "../../assets/vendingmachine.png"
+import vendingmachine from "../../assets/img1.jpeg"
 
 export default function AboutSection() {
   return (
-    <section className="relative py-10 md:py-20 overflow-hidden bg-gradient-to-br from-[#124090] via-[#0b305f] to-[#124090]">
-
-      {/* Background Glows - Gold themed */}
+    <section className="relative py-10 md:py-20 overflow-hidden bg-white">
+      {/* Background Glows shifted for light theme */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-10 w-96 h-96 bg-[#FADC58]/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-0 w-80 h-80 bg-[#C79F2B]/20 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 -left-20 w-72 h-72 bg-[#3065C5]/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-10 w-96 h-96 bg-[#3065C5]/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-0 w-80 h-80 bg-[#124090]/10 rounded-full blur-3xl"></div>
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
@@ -20,40 +18,40 @@ export default function AboutSection() {
           {/* Left: Content */}
           <div className="space-y-10">
             <div>
-              <div className="inline-flex items-center gap-2 sm:gap-3 bg-[#FADC58]/20 text-[#FADC58] px-4 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider mb-6 shadow-xl border border-[#FADC58]/30">
+              <div className="inline-flex items-center gap-2 sm:gap-3 bg-[#3065C5]/10 text-[#124090] px-4 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider mb-6 shadow-md border border-[#3065C5]/20">
                 <HeartHandshake className="w-4 h-4" />
                 Made for You, with Care
               </div>
-              <h2 className="text-4xl md:text-7xl font-black text-white leading-tight">
-                We Turn Your Photos Into<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FADC58] to-[#C79F2B]">
-                  Everyday Magic
+              <h2 className="text-4xl md:text-7xl font-black text-[#124090] leading-tight">
+                Instant Custom Printing<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3065C5] to-[#124090]">
+                  Right in Australia
                 </span>
               </h2>
             </div>
 
-            <p className="text-xl md:text-2xl text-gray-300 leading-relaxed max-w-2xl">
-              Since 2020, we’ve helped over <span className="text-[#FADC58] font-bold">100,000+</span> customers keep their favorite memories close — right on their phone.
+            <p className="text-xl md:text-2xl text-gray-600 leading-relaxed max-w-2xl">
+              We offer <span className="text-[#3065C5] font-bold">automatic custom phone case printing</span> across Australia. This website allows you to explore our premium designs and services from anywhere.
             </p>
 
-            <p className="text-lg text-gray-400 leading-relaxed">
-              Every custom phone case is printed with love using eco-friendly inks and premium materials. Your happiness (and your photo looking perfect) is our obsession.
+            <p className="text-xl text-[#124090] leading-relaxed font-black">
+              To customize and print your phone case, simply visit our location and get it done instantly.
             </p>
 
             {/* Glass Stats - Fully Mobile Responsive with Laptop Font Adjustment */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12">
               {[
-                { number: "100K+", label: "Cases Created", gradient: "from-[#FADC58] to-[#C79F2B]" },
-                { number: "4.9★", label: "Average Rating", gradient: "from-[#FADC58] to-[#C79F2B]" },
-                { number: "24hr", label: "Proof Turnaround", gradient: "from-[#3065C5] to-[#3065C5]" }
+                { number: "100K+", label: "Cases Created", gradient: "from-[#3065C5] to-[#124090]" },
+                { number: "4.9★", label: "Average Rating", gradient: "from-[#3065C5] to-[#124090]" },
+                { number: "24hr", label: "Proof Turnaround", gradient: "from-[#3065C5] to-[#124090]" }
               ].map((stat, i) => (
                 <div key={i} className="relative group">
-                  <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-20 rounded-3xl blur-xl group-hover:opacity-40 transition-opacity duration-500`} />
-                  <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 text-center hover:bg-white/20 transition-all">
+                  <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-10 rounded-3xl blur-xl group-hover:opacity-30 transition-opacity duration-500`} />
+                  <div className="relative bg-[#124090]/5 backdrop-blur-xl border border-[#124090]/10 rounded-3xl p-6 text-center hover:bg-[#124090]/10 transition-all">
                     <div className={`text-4xl sm:text-5xl lg:text-4xl xl:text-4xl font-black bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent`}>
                       {stat.number}
                     </div>
-                    <div className="text-gray-300 text-sm mt-2 font-medium">{stat.label}</div>
+                    <div className="text-[#124090]/70 text-sm mt-2 font-medium">{stat.label}</div>
                   </div>
                 </div>
               ))}
@@ -61,7 +59,7 @@ export default function AboutSection() {
 
             <Link
               to="/about"
-              className="group inline-flex items-center gap-2 sm:gap-4 bg-gradient-to-r from-[#FADC58] to-[#C79F2B] text-[#124090] px-4 sm:px-10 py-3 sm:py-6 rounded-full text-base sm:text-xl font-bold shadow-2xl hover:shadow-[#FADC58]/60 hover:scale-105 transition-all duration-300"
+              className="group inline-flex items-center gap-2 sm:gap-4 bg-gradient-to-r from-[#124090] to-[#3065C5] text-white px-4 sm:px-10 py-3 sm:py-6 rounded-full text-base sm:text-xl font-bold shadow-2xl hover:shadow-[#124090]/40 hover:scale-105 transition-all duration-300"
             >
               Our Story & Promise
               <ArrowRight className="w-4 h-4 sm:w-6 sm:h-6 transition-transform group-hover:translate-x-1 sm:group-hover:translate-x-3" />
@@ -78,7 +76,7 @@ export default function AboutSection() {
               <img
                 src="https://thedairy.com/cdn/shop/files/The-Dairy-Custom-Case-Accessories-Desktop.jpg?v=1745388557&width=900"
                 alt="Happy customer holding personalized custom phone case"
-                className="relative rounded-3xl shadow-2xl w-full object-cover border-8 border-white/10 group-hover:scale-105 transition-transform duration-700"
+                className="relative rounded-3xl shadow-2xl w-full object-cover border-8 border-gray-100 group-hover:scale-105 transition-transform duration-700"
               />
             </div>
 
@@ -101,7 +99,7 @@ export default function AboutSection() {
                 className="relative rounded-3xl shadow-2xl w-full object-cover border-8 border-white/10 group-hover:scale-110 transition-transform duration-700 -rotate-2 lg:-rotate-12 hover:-rotate-6"
               />
               {/* Floating Badge */}
-              <div className="absolute -top-6 -right-6 bg-gradient-to-r from-[#FADC58] to-[#C79F2B] text-[#124090] px-6 py-3 rounded-full font-bold shadow-2xl flex items-center gap-2 animate-bounce">
+              <div className="absolute -top-6 -right-6 bg-gradient-to-r from-[#124090] to-[#3065C5] text-white px-6 py-3 rounded-full font-bold shadow-2xl flex items-center gap-2 animate-bounce">
                 <Sparkles className="w-5 h-5" />
                 Real Memories
               </div>

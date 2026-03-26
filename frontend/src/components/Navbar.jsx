@@ -15,17 +15,10 @@ const Navbar = () => {
 
     const [open, setOpen] = useState(false);
     const [profileOpen, setProfileOpen] = useState(false);
-    const [infoOpen, setInfoOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const profileRef = useRef(null);
-    const infoRef = useRef(null);
 
-    const isInfoPageActive =
-        location.pathname === "/about" ||
-        location.pathname === "/blog" ||
-        location.pathname === "/store-locator" ||
-        location.pathname === "/contact" ||
-        location.pathname === "/faq";
+
 
     const handleLogout = () => {
         logout();
@@ -59,7 +52,6 @@ const Navbar = () => {
     // Close mobile menu on route change
     useEffect(() => {
         setOpen(false);
-        setInfoOpen(false);
     }, [location.pathname]);
 
     return (
@@ -84,7 +76,6 @@ const Navbar = () => {
                 <div className="hidden lg:flex items-center gap-1 xl:gap-2">
                     <NavLink
                         to="/"
-                        onClick={() => setInfoOpen(false)}
                         className={({ isActive }) =>
                             `relative px-5 py-3 text-md font-semibold transition-all duration-300
                   ${isActive ? "text-gray-900" : "text-gray-800 hover:text-[#D1B544]"}
@@ -94,9 +85,8 @@ const Navbar = () => {
                         Home
                     </NavLink>
 
-                    <NavLink
+                    {/* <NavLink
                         to="/custom-mobilecase"
-                        onClick={() => setInfoOpen(false)}
                         className={({ isActive }) =>
                             `relative px-5 py-3 text-md font-semibold transition-all duration-300
                   ${isActive ? "text-[#D1B544]" : "text-gray-800 hover:text-[#D1B544]"}
@@ -104,11 +94,10 @@ const Navbar = () => {
                         }
                     >
                         Phone Cases
-                    </NavLink>
+                    </NavLink> */}
 
-                    <NavLink
+                    {/* <NavLink
                         to="/CaseCraftBusinessPage"
-                        onClick={() => setInfoOpen(false)}
                         className={({ isActive }) =>
                             `relative px-5 py-3 text-md font-semibold transition-all duration-300
                   ${isActive ? "text-[#D1B544]" : "text-gray-800 hover:text-[#D1B544]"}
@@ -116,11 +105,10 @@ const Navbar = () => {
                         }
                     >
                         Become Owner
-                    </NavLink>
+                    </NavLink> */}
 
                     {/* <NavLink
                         to="/pet-center"
-                        onClick={() => setInfoOpen(false)}
                         className={({ isActive }) =>
                             `relative px-5 py-3 text-md font-semibold transition-all duration-300
                   ${isActive ? "text-[#D1B544]" : "text-gray-800 hover:text-[#D1B544]"}
@@ -131,7 +119,6 @@ const Navbar = () => {
                     </NavLink> */}
                     <NavLink
                         to="/store-locator"
-                        onClick={() => setInfoOpen(false)}
                         className={({ isActive }) =>
                             `relative px-5 py-3 text-md font-semibold transition-all duration-300
                   ${isActive ? "text-[#D1B544]" : "text-gray-800 hover:text-[#D1B544]"}
@@ -141,33 +128,25 @@ const Navbar = () => {
                         Store Locator
                     </NavLink>
 
-                    {/* INFO DROPDOWN */}
-                    <div className="relative" ref={infoRef}
-                        onMouseEnter={() => setInfoOpen(true)}
-                        onMouseLeave={() => setInfoOpen(false)}
+                    <NavLink
+                        to="/about"
+                        className={({ isActive }) =>
+                            `relative px-5 py-3 text-md font-semibold transition-all duration-300
+                  ${isActive ? "text-[#D1B544]" : "text-gray-800 hover:text-[#D1B544]"}
+                  after:absolute after:bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-[#D1B544] after:transition-all hover:after:w-8`
+                        }
                     >
-                        <button
-                            onClick={() => setInfoOpen(!infoOpen)}
-                            className={`px-3 xl:px-4 py-2 text-md font-semibold rounded-lg transition-all flex items-center gap-1 ${infoOpen || isInfoPageActive
-                                ? "text-[#D1B544] bg-yellow-50"
-                                : "text-gray-800 hover:text-[#D1B544] hover:bg-yellow-50"
-                                }`}
-                        >
-                            Info
-                            <ChevronDown
-                                className={`w-4 h-4 transition-transform ${infoOpen ? "rotate-180" : ""}`}
-                            />
-                        </button>
+                        About Us
+                    </NavLink>
+                    <NavLink
+                        to="/contact"
+                        className="px-8 py-3 bg-gradient-to-r from-[#D1B544] to-[#C79F2B] text-gray-900 rounded-full font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2 ml-4"
+                    >
+                        <Sparkles className="w-5 h-5" />
+                        Contact
+                    </NavLink>
 
-                        {infoOpen && (
-                            <div className="absolute right-0 w-48 rounded-xl bg-white shadow-xl py-2 border border-gray-100 z-50">
-                                <NavLink to="/about" className="block px-4 py-2.5 text-md font-semibold text-gray-700 hover:text-[#D1B544] hover:bg-yellow-50">About Us</NavLink>
-                                <NavLink to="/contact" className="block px-4 py-2.5 text-md font-semibold text-gray-700 hover:text-[#D1B544] hover:bg-yellow-50">Contact</NavLink>
-                            </div>
-                        )}
-                    </div>
-
-                    {user?.role !== "admin" && (
+                    {/* {user?.role !== "admin" && (
                         <div
                             className="relative ml-6"
                             onMouseEnter={() => setCartOpen(true)}
@@ -185,7 +164,6 @@ const Navbar = () => {
                                 )}
                             </NavLink>
 
-                            {/* Cart Dropdown Preview */}
                             <AnimatePresence>
                                 {cartOpen && items.length > 0 && (
                                     <motion.div
@@ -234,10 +212,10 @@ const Navbar = () => {
                                 )}
                             </AnimatePresence>
                         </div>
-                    )}
+                    )} */}
 
                     {/* Desktop Authenticated User */}
-                    {loading ? (
+                    {/* {loading ? (
                         <div className="ml-6 w-32 h-10 rounded-full bg-slate-100 animate-pulse"></div>
                     ) : isAuthenticated ? (
                         <div className="relative ml-6" ref={profileRef}>
@@ -287,7 +265,7 @@ const Navbar = () => {
                             <Sparkles className="w-5 h-5" />
                             Login
                         </NavLink>
-                    )}
+                    )} */}
                 </div>
 
                 {/* MOBILE TOGGLE BUTTON */}
@@ -307,31 +285,23 @@ const Navbar = () => {
             >
                 <div className="px-4 pt-4 pb-6 space-y-2 bg-gray-50 border-t border-gray-200">
                     <NavLink to="/" onClick={() => setOpen(false)} className="block px-4 py-3 text-md font-semibold text-gray-800 hover:text-[#D1B544]">Home</NavLink>
-                    <NavLink to="/custom-mobilecase" onClick={() => setOpen(false)} className="block px-4 py-3 text-md font-semibold text-gray-800 hover:text-[#D1B544]">Phone Cases</NavLink>
-                    <NavLink to="/CaseCraftBusinessPage" onClick={() => setOpen(false)} className="block px-4 py-3 text-md font-semibold text-gray-800 hover:text-[#D1B544]">Become Owner</NavLink>
+                    {/* <NavLink to="/custom-mobilecase" onClick={() => setOpen(false)} className="block px-4 py-3 text-md font-semibold text-gray-800 hover:text-[#D1B544]">Phone Cases</NavLink> */}
+                    {/* <NavLink to="/CaseCraftBusinessPage" onClick={() => setOpen(false)} className="block px-4 py-3 text-md font-semibold text-gray-800 hover:text-[#D1B544]">Become Owner</NavLink> */}
                     {/* <NavLink to="/pet-center" onClick={() => setOpen(false)} className="block px-4 py-3 text-md font-semibold text-gray-800 hover:text-[#D1B544]">Pet Gifts</NavLink> */}
                     <NavLink to="/store-locator" onClick={() => setOpen(false)} className="block px-4 py-3 text-md font-semibold text-gray-800 hover:text-[#D1B544]">Store Locator</NavLink>
 
-                    {/* INFO DROPDOWN MOBILE */}
-                    <div className="space-y-1">
-                        <button
-                            onClick={() => setInfoOpen(!infoOpen)}
-                            className="w-full flex items-center justify-between px-4 py-3 text-md font-semibold text-gray-800 hover:text-[#D1B544]"
-                        >
-                            <span>Info</span>
-                            <ChevronDown className={`w-4 h-4 transition-transform ${infoOpen ? "rotate-180" : ""}`} />
-                        </button>
-
-                        {infoOpen && (
-                            <div className="pl-4 space-y-1">
-                                <NavLink to="/about" onClick={() => setOpen(false)} className="block px-4 py-2 text-md font-semibold text-gray-600 hover:text-[#D1B544]">About Us</NavLink>
-                                <NavLink to="/contact" onClick={() => setOpen(false)} className="block px-4 py-2 text-md font-semibold text-gray-600 hover:text-[#D1B544]">Contact</NavLink>
-                            </div>
-                        )}
-                    </div>
+                    <NavLink to="/about" onClick={() => setOpen(false)} className="block px-4 py-3 text-md font-semibold text-gray-800 hover:text-[#D1B544]">About Us</NavLink>
+                    <NavLink
+                        to="/contact"
+                        onClick={() => setOpen(false)}
+                        className="w-full max-w-xs mx-auto text-center py-3 bg-gradient-to-r from-[#D1B544] to-[#C79F2B] text-gray-900 rounded-full font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex justify-center items-center gap-2 mt-4"
+                    >
+                        <Sparkles className="w-5 h-5" />
+                        Contact
+                    </NavLink>
 
                     {/* Mobile Cart */}
-                    {user?.role !== "admin" && (
+                    {/* {user?.role !== "admin" && (
                         <NavLink
                             to="/user/cart"
                             onClick={() => setOpen(false)}
@@ -348,9 +318,9 @@ const Navbar = () => {
                                 </span>
                             </div>
                         </NavLink>
-                    )}
+                    )} */}
 
-                    {loading ? (
+                    {/* {loading ? (
                         <div className="px-4 py-3 rounded-lg bg-white mt-4 h-24 animate-pulse"></div>
                     ) : isAuthenticated ? (
                         <div className="px-4 py-3 rounded-lg bg-white mt-4 shadow-md">
@@ -384,7 +354,7 @@ const Navbar = () => {
                             <Sparkles className="w-5 h-5" />
                             Login
                         </NavLink>
-                    )}
+                    )} */}
                 </div>
             </div>
         </nav>

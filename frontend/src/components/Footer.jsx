@@ -32,7 +32,7 @@ const Footer = () => {
           {/* Brand & Love Message */}
           <div className="space-y-6">
             <div className="flex items-center gap-3">
-              <img src={logo} alt="CaseCraft Logo"  className="h-24"/>
+              <img src={logo} alt="CaseCraft Logo" className="h-24" />
             </div>
             <p className="text-gray-300 text-lg leading-relaxed">
               We don’t just make phone cases — we help you keep your best memory with you, every single day.
@@ -59,10 +59,11 @@ const Footer = () => {
             <ul className="space-y-4">
               {[
                 { label: "Home", to: "/" },
-                { label: "Custom Phone Cases", to: "/custom-mobilecase" },
-                { label: "Become a Owner", to: "/CaseCraftBusinessPage" },
-                { label: "Start Design", to: "/case-design" },
-                { label: "About US", to: "/about" }
+                { label: "About US", to: "/about" },
+
+                { label: "Store locator", to: "/store-locator" },
+
+                { label: "Contact Us", to: "/contact" },
               ].map((item) => (
                 <li key={item.label}>
                   <Link

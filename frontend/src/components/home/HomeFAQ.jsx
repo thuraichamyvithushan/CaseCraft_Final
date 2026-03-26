@@ -7,28 +7,24 @@ export default function HomeFAQ() {
 
   const faqs = [
     {
-      question: "Can I put multiple images on one phone case?",
-      answer: "Absolutely! Our designers are collage experts. You can add multiple on most cases. Just upload your photos — we’ll handle the rest and make it look stunning. Many customers do full family portraits!"
+      question: "Can I use multiple images on one phone case?",
+      answer: "Absolutely! Our automatic printing system allows you to create beautiful layouts. You can choose your favorite photos and arrange them into a stunning design right on-site at our vending machine."
     },
     {
-      question: "Do I get to see a proof before it prints?",
-      answer: "Yes — always. Within 12–24 hours of ordering, you’ll receive a digital mockup of your exact case. You can move the photo, adjust brightness, crop, add text, or change anything until it’s 100% perfect. We don’t print until you reply “YES!”"
+      question: "Do I get to see a preview before it prints?",
+      answer: "Yes! Our intuitive interface allows you to see a real-time preview of your design. You can adjust the photo, crop, add text, and ensure everything is perfect before the printing process starts."
     },
     {
-      question: "What case types do you offer?",
-      answer: "All the best ones:\n• Tough Armor – maximum drop protection (our bestseller)\n• Clear Glow – anti-yellowing, shows off your design\n• Slim Matte – lightweight & sleek\n• MagSafe Compatible – strong magnets, works perfectly\n• Eco Bio Case – 100% biodegradable (plant-based)\n• Wallet & Flip Cases – with card slots"
+      question: "How long does the printing process take?",
+      answer: "The entire process is incredibly fast. Once your design is finalized at our vending machine, your custom case is printed and ready in just 4–5 minutes — providing instant results on the spot."
     },
     {
-      question: "How long will it take to get my case?",
-      answer: "Production: 2–4 business days (handmade just for you)\nShipping: 3–7 days (free on orders $40+)\nMost customers receive their case in 7–10 days total.\nNeed it faster? Add Rush Production at checkout — ships in 24–48 hours!"
+      question: "Can I design cases for different phone models?",
+      answer: "Yes! Our systems at the vending locations support a wide variety of phone models (iPhone, Samsung, Google Pixel, etc.). You can create multiple unique designs for different devices during your visit."
     },
     {
-      question: "Can I order for different phone models at once?",
-      answer: "Yes! Add as many cases as you want to your cart — each can have a different photo and phone model (iPhone, Samsung, Google Pixel, etc.). Perfect for gifting or matching with family members!"
-    },
-    {
-      question: "Do you offer gift wrapping or messages?",
-      answer: "Yes! At checkout, choose “Gift Option” — we’ll wrap it beautifully, include a handwritten card with your message, and hide the price. Many customers use this for birthdays, Christmas, and Rainbow Bridge memorials."
+      question: "Where can I find your vending machines?",
+      answer: "We have multiple locations across Australia, including major shopping centers in NSW and SA. You can use our Store Locator to find the machine nearest to you and start designing instantly."
     }
   ];
 
@@ -37,13 +33,13 @@ export default function HomeFAQ() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-[#C79F2B]/10 text-[#C79F2B] px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider mb-4">
-            <Sparkles className="w-3 h-3" />
+          <div className="inline-flex items-center gap-2 bg-[#0a214f]/5 text-[#0a214f] px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider mb-4 border border-[#C79F2B]/30">
+            <Sparkles className="w-4 h-4 text-[#C79F2B]" />
             Common Questions
           </div>
           <h2 className="text-5xl md:text-6xl font-black text-[#0a214f] leading-tight">
             Got Questions?<br />
-            <span className="text-[#FADC58]">We’ve Got Answers</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FADC58] to-[#C79F2B]">We’ve Got Answers</span>
           </h2>
         </div>
 

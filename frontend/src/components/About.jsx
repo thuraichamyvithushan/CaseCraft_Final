@@ -3,28 +3,14 @@ import {
   ArrowRight,
   Zap,
   Store,
-  Package,
-  Droplets,
-  Rocket,
-  HeadphonesIcon,
-  ChevronDown,
-  Mail,
-  Phone,
   Sparkles,
-  CheckCircle2,
-  Users,
-  TrendingUp,
-  Clock,
-  Shield,
-  MapPin,
-  QrCode,
   Smartphone,
   CreditCard
 } from "lucide-react";
 import { FaFacebook, FaInstagram, FaTwitter, } from "react-icons/fa";
 import { SiTiktok } from "react-icons/si";
 
-import machineHero from "../assets/vendingmachine-hero.png";
+
 import { Link } from "react-router-dom";
 
 const About = () => {
@@ -65,9 +51,9 @@ const About = () => {
       number: "01",
     },
     {
-      title: "Online Customisation",
-      description: "Our newly upgraded website, casecraft.com.au, offers an enhanced custom phone case design experience.",
-      details: "Create your perfect case from anywhere with more options, templates, and premium finishes.",
+      title: "Explore Our Designs",
+      description: "Our newly upgraded website, casecraft.com.au, allows customers to explore our extensive library of designs and premium services from the comfort of their home.",
+      details: "Find the inspiration for your next unique case before you visit us in person.",
       number: "02",
     },
     {
@@ -78,13 +64,7 @@ const About = () => {
     },
   ];
 
-  const packageFeatures = [
-    { icon: Zap, title: "Setup & Software", desc: "Fully configured system, cloud dashboard access, and step-by-step onboarding." },
-    { icon: Package, title: "Phone Case Inventory", desc: "1,000 premium blank cases for iPhone, Samsung, Google Pixel & more." },
-    { icon: Droplets, title: "High-Capacity Ink", desc: "Professional ink kit — enough for up to 2,000 stunning prints." },
-    { icon: Rocket, title: "Launch Ready", desc: "Proven turnkey model — designed for immediate revenue from day one." },
-    { icon: HeadphonesIcon, title: "Ongoing Support", desc: "Dedicated training, 24/7 technical help, and marketing guidance." }
-  ];
+
 
   return (
     <div className="min-h-screen bg-transparent ">
@@ -115,7 +95,7 @@ const About = () => {
             </h1>
 
             <p className="text-lg md:text-2xl text-gray-300 max-w-3xl mx-auto font-medium leading-relaxed mb-8 md:mb-12">
-              Australia's Proudly Homegrown Leader in Custom Phone Case Vending Machines & Personalized Case Solutions
+              We offer automatic custom phone case printing in Australia. Explore our designs online, then visit our location to get your case printed instantly.
             </p>
 
             <div className="inline-flex items-center gap-3 px-8 py-4 md:px-10 md:py-5 bg-gradient-to-r from-[#FADC58] to-[#C79F2B] text-[#124090] rounded-full font-black text-lg md:text-xl hover:scale-105 transition-all duration-300 shadow-[0_0_30px_rgba(250,220,88,0.4)]">
@@ -168,81 +148,7 @@ const About = () => {
         </div>
       </div>
 
-      {/* Why Partner */}
-      <section className="py-16 md:py-32 bg-gradient-to-b from-[#124090] via-[#0f3a7a] to-[#0b305f]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className={`text-center mb-16 md:mb-24 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-            <h2 className="text-4xl md:text-8xl font-black text-[#ffffff] mb-6 uppercase tracking-tight">
-              Why Partner With <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#909eb7] to-[#C79F2B]">Case Craft?</span>
-            </h2>
-            <div className="w-24 h-1 bg-[#FADC58] mx-auto rounded-full"></div>
-          </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-            {[
-              { icon: TrendingUp, text: "Proven business model with real-world performance" },
-              { icon: Users, text: "High-demand product with strong margins" },
-              { icon: Zap, text: "Fully automated vending solution" },
-              { icon: Shield, text: "Minimal staffing required" },
-              { icon: Clock, text: "Fast setup & easy operation" },
-              { icon: MapPin, text: "Perfect for malls, airports, events & high-traffic locations" }
-            ].map((item, i) => (
-              <div
-                key={i}
-                className={`group flex items-start gap-6 p-8 bg-white rounded-[32px] shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 border border-gray-100 hover:border-[#FADC58]/50 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-                style={{ transitionDelay: `${i * 100}ms` }}
-              >
-                <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-[#124090] to-[#0b305f] rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 flex-shrink-0">
-                  <item.icon className="w-7 h-7 md:w-8 md:h-8 text-[#FADC58]" />
-                </div>
-                <p className="text-lg font-bold text-gray-700 leading-relaxed pt-2">
-                  {item.text}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Kickstarter Package */}
-      <section className="py-16 md:py-32 bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-8xl font-black text-[#124090] mb-8 md:mb-12">
-            Kickstarter Package
-          </h2>
-
-          <div className="relative mx-auto max-w-5xl mb-24 md:mb-32 group">
-            <div className="absolute -inset-4 bg-gradient-to-r from-[#FADC58] via-[#C79F2B] to-[#124090] rounded-[40px] blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-700"></div>
-            <img
-              src={machineHero}
-              alt="Case Craft Vending Machine"
-              className="relative rounded-2xl md:rounded-3xl shadow-2xl w-full object-cover"
-            />
-          </div>
-
-          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-12">
-            {packageFeatures.map((feature, i) => (
-              <div key={i} className="group bg-white/90 backdrop-blur rounded-2xl md:rounded-3xl p-6 md:p-10 shadow-2xl hover:shadow-3xl hover:scale-110 transition-all duration-500 border border-gray-100">
-                <div className="w-16 h-16 md:w-24 md:h-24 mx-auto mb-6 md:mb-8 bg-gradient-to-br from-[#FADC58] to-[#C79F2B] rounded-2xl md:rounded-3xl flex items-center justify-center shadow-xl">
-                  <feature.icon className="w-8 h-8 md:w-14 md:h-14 text-[#124090]" />
-                </div>
-                <h4 className="text-xl md:text-2xl font-black text-[#124090] mb-3 md:mb-4">{feature.title}</h4>
-                <p className="text-sm md:text-gray-700 leading-relaxed">{feature.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-24">
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-6 bg-gradient-to-r from-[#FADC58] via-[#e6c64d] to-[#C79F2B] text-[#124090] px-12 py-6 rounded-full text-2xl font-black shadow-[0_0_50px_rgba(250,220,88,0.3)] hover:shadow-[0_0_70px_rgba(250,220,88,0.5)] hover:scale-105 transition-all duration-500 group"
-            >
-              Contact Us To Find Out More
-              <ArrowRight className="w-8 h-8 group-hover:translate-x-4 transition-transform duration-500" />
-            </Link>
-          </div>
-        </div>
-      </section>
 
       {/* Our Story*/}
       <section className="relative py-16 md:py-32 bg-[#124090] overflow-hidden">
@@ -386,13 +292,13 @@ const About = () => {
             </h2>
 
             <p className="text-2xl md:text-5xl font-black text-[#124090] leading-tight max-w-5xl mx-auto uppercase tracking-tighter">
-              To empower every Australian to <span className="text-[#C79F2B]">capture life's beauty</span> and wear their memories with pride.
+              To provide <span className="text-[#C79F2B]">instant, high-quality printing</span> for every Australian, right where they are.
             </p>
 
             <div className="mt-16 w-24 h-1 bg-gradient-to-r from-[#124090] to-[#FADC58] mx-auto rounded-full"></div>
 
-            <p className="mt-16 text-xl md:text-2xl text-gray-500 font-medium max-w-3xl mx-auto leading-relaxed">
-              Whether through our instant vending machines or our intuitive online platform, we make the extraordinary accessible to everyone, effortlessly.
+            <p className="mt-16 text-xl md:text-2xl text-gray-500 font-medium max-w-3xl mx-auto leading-relaxed italic">
+              "We offer automatic custom phone case printing in Australia. This website allows customers to explore our designs and services. To customize and print your phone case, simply visit our location and get it done instantly."
             </p>
           </div>
         </div>
