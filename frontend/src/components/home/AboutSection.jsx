@@ -3,6 +3,7 @@ import { ArrowRight, Sparkles, HeartHandshake } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import vendingmachine from "../../assets/img1.jpeg"
 
+
 export default function AboutSection() {
   return (
     <section className="relative py-10 md:py-20 overflow-hidden bg-white">
@@ -13,8 +14,7 @@ export default function AboutSection() {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-
+        <div className="grid lg:grid-cols-2 gap-0 lg:gap-16 items-center">
           {/* Left: Content */}
           <div className="space-y-10">
             <div>
